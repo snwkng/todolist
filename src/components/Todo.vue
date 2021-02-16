@@ -5,7 +5,7 @@
     </div>
     <div class="todo-content">
       <div class="todo-content-title">
-        <b-icon-chevron-compact-down /> <span>Дом</span>
+        <b-icon-chevron-compact-down style="transformY(90deg)"/> <span>Дом</span>
       </div>
       <ul class="list-group">
         <li>
@@ -22,6 +22,6 @@
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'Todo'
 }
 </script>
