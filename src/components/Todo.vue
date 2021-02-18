@@ -1,15 +1,25 @@
 <template>
-  <b-col md="7">
+  <b-col md="8">
     <div class="todo-title">
       <h1>Сегодня</h1>
     </div>
     <div class="todo-content">
       <div class="todo-content-title">
-        <b-icon-chevron-compact-down /> <span>Дом</span>
+        <span>Дом</span>
       </div>
       <ul class="list-group">
         <li>
-          Itemasdas
+          <div class="todo-item">
+            <div class="d-flex">
+              <b-form-radio
+                v-model="done"
+                name="done-radio"
+                value="true" />
+              <span>Some do</span>
+            </div>
+            <div class="todo-item__settings">
+            </div>
+          </div>
         </li>
         <li>Itemasdas asdasda</li>
         <li>Itemasdas asdasdas</li>
@@ -22,6 +32,11 @@
 
 <script>
 export default {
-  name: 'HelloWorld'
+  name: 'Todo',
+  data () {
+    return {
+      done: false
+    }
+  }
 }
 </script>
