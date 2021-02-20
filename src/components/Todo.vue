@@ -5,12 +5,12 @@
     </div>
     <div class="todo-content">
       <div class="todo-content-title">
-        <span>Дом</span>
+        <font-awesome-icon icon="chevron-down" /><span>Дом</span>
       </div>
       <ul class="list-group">
         <li>
           <div class="todo-item">
-            <div class="d-flex">
+            <div class="d-flex todo-item__content">
               <b-form-radio
                 v-model="done"
                 name="done-radio"
@@ -18,13 +18,106 @@
               <span>Some do</span>
             </div>
             <div class="todo-item__settings">
+              <div class="option">
+                <font-awesome-icon icon="edit"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="trash"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="ellipsis-v"/>
+              </div>
             </div>
           </div>
         </li>
-        <li>Itemasdas asdasda</li>
-        <li>Itemasdas asdasdas</li>
-        <li>Itemasdas asdasdas</li>
-        <li>Itemasdasasdas da</li>
+        <li>
+          <div class="todo-item">
+            <div class="d-flex todo-item__content">
+              <b-form-radio
+                v-model="done"
+                name="done-radio"
+                value="true" />
+              <span>Some do</span>
+            </div>
+            <div class="todo-item__settings">
+              <div class="option">
+                <font-awesome-icon icon="edit"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="trash"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="ellipsis-v"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="todo-item">
+            <div class="d-flex todo-item__content">
+              <b-form-radio
+                v-model="done"
+                name="done-radio"
+                value="true" />
+              <span>Some do</span>
+            </div>
+            <div class="todo-item__settings">
+              <div class="option">
+                <font-awesome-icon icon="edit"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="trash"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="ellipsis-v"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="todo-item">
+            <div class="d-flex todo-item__content">
+              <b-form-radio
+                v-model="done"
+                name="done-radio"
+                value="true" />
+              <span>Some do</span>
+            </div>
+            <div class="todo-item__settings">
+              <div class="option">
+                <font-awesome-icon icon="edit"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="trash"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="ellipsis-v"/>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="todo-item">
+            <div class="d-flex todo-item__content">
+              <b-form-radio
+                v-model="done"
+                name="done-radio"
+                value="true" />
+              <span>Some do</span>
+            </div>
+            <div class="todo-item__settings">
+              <div class="option">
+                <font-awesome-icon icon="edit"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="trash"/>
+              </div>
+              <div class="option">
+                <font-awesome-icon icon="ellipsis-v"/>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </b-col>
