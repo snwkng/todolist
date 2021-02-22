@@ -1,5 +1,5 @@
 <template>
-  <b-col md="4" class="todo-left-navigation">
+  <b-col md="3" class="todo-left-navigation">
     <ul class="list-group">
       <li>
         <b-icon-bookmark />
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+// import store from '@/store'
+// import { mapState, mapAction } from 'vuex'
 export default {
   name: 'LeftNavigation'
 }
