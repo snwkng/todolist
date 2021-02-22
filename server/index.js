@@ -2,12 +2,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const http = require('http')
-const { routes } = require('../src/routes')
+const { routes } = require('./routes')
 
 // подключение к бд
 mongoose.connect(
-  'mongodb://mongodb:27017/todolist',
+  'mongodb://localhost:27017/todolist',
   {
+    useUnifiedTopology: true,
     useCreateIndex: true,
     useNewUrlParser: true
   }

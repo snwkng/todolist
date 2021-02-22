@@ -9,14 +9,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "boom": "^7.3.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.6.5",
+    "core-js": "^3.9.0",
     "express": "^4.17.1",
     "express-promise-router": "^4.0.1",
-    "mongoose": "^5.11.16",
+    "mongoose": "^5.11.17",
     "nodemon": "^2.0.7",
     "qs": "^6.9.6",
     "ramda": "^0.27.1",
