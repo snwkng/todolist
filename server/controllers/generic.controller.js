@@ -9,7 +9,7 @@ const genericCrud = (model) => ({
       return res.status(400).send(boom.boomify(error))
     }
   },
-  async getAll (req, res) {
+  async getAll (_, res) {
     try {
       const items = await model.find()
       return res.status(200).send(items)
