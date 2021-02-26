@@ -1,3 +1,20 @@
-@import 'node_modules/bootstrap/scss/bootstrap.scss';
-@import 'node_modules/bootstrap-vue/src/index.scss';
-@import './todo.scss';
+$font-family: Roboto,Helvetica Neue,sans-serif;
+$navbar-height: 45px;
+$border-radius: .25rem;
+$padding: 15px;
+
+*, :after, :before {
+    box-sizing: inherit;
+}
+html {
+    box-sizing: border-box;
+    font-family: $font-family;
+    font-size: 14px;
+    line-height: 1.25;
+}
+body {
+    margin: 0px;
+}
+.main {
+    display: flex;
+}
