@@ -4,7 +4,10 @@ const getTodo = (id) => request({ url: `todo/${id}`, method: 'get' })
 
 const getTodos = () => request({ url: 'todo', method: 'get' })
 
+const getAllTodoGroup = () => request({ url: 'todoGroup', method: 'get' })
+
 export {
   getTodo,
-  getTodos
+  getTodos,
+  getAllTodoGroup
 }

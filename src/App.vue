@@ -6,7 +6,7 @@
 </template>
 
 <style lang="scss">
-  @import "assets/styles/main.scss";
+  @import "assets/styles/base.scss";
 </style>
 <script>
 import Navbar from '@/components/Navbar'

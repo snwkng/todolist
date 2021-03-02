@@ -15,8 +15,6 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "boom": "^7.3.0",
-    "bootstrap": "^4.6.0",
-    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.9.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
