@@ -6,6 +6,9 @@ const mutations = {
   },
   SET_TODO_ERROR (state, error) {
     state.todoError = error
+  },
+  SET_SELECT_GROUP (state, group) {
+    state.activeGroup = group
   }
 }
 
@@ -17,12 +20,17 @@ const actions = {
     } catch (error) {
       commit('SET_TODO_ERROR', error)
     }
+  },
+  ADD_SELECT_GROUP ({ commit }, group) {
+    commit('SET_SELECT_GROUP', group)
   }
 }
 
 const state = () => ({
   allTogosGroup: [],
-  todoError: null
+  todoError: null,
+
+  activeGroup: {}
 })
 
 const getters = {}

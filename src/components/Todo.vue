@@ -1,6 +1,10 @@
 <template>
  <div class="todo">
-
+   <div class="todo-header">
+     <h1>{{activeGroup.group_name}}</h1>
+   </div>
+   <div class="todo-list">
+   </div>
  </div>
 </template>
 
@@ -16,7 +20,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('todo', ['todos'])
+    ...mapState('todo', ['todos']),
+    ...mapState('todoGroup', ['activeGroup'])
   },
   methods: {
     ...mapActions('todo', ['GET_TODOS'])
