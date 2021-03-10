@@ -1,10 +1,8 @@
 <template>
-  <b-container fluid class="todo">
-    <b-row>
-      <LeftNavigation />
-      <Todo />
-    </b-row>
-  </b-container>
+<main class="main">
+  <LeftNavigation />
+  <Todo />
+</main>
 </template>
 
 <script>

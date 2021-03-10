@@ -1,34 +1,37 @@
 <template>
-  <b-col md="3" class="todo-left-navigation">
-    <ul class="list-group">
-      <li>
-        <b-icon-bookmark />
-        <span class="list-group__item">Входящие</span>
-      </li>
-      <li>
-        <b-icon-bookmark-plus />
-        <span class="list-group__item">Входящие для команды</span>
-      </li>
-      <li>
-        <b-icon-calendar />
-        <span class="list-group__item">Сегодня</span>
-      </li>
-      <li>
-        <b-icon-calendar4-event />
-        <span class="list-group__item">Предстоящие</span>
-      </li>
-      <li>
-        <b-icon-exclamation-diamond />
-        <span class="list-group__item">Дела</span>
-      </li>
+  <nav class="sidebar">
+    <ul class="sidebar-list" v-for="group in allTogosGroup" :key="group.group_name">
+      <li :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]" @click="selectGroup(group)">
+        <font-awesome-icon class="sidebar-icon" :icon="group.icon" />
+        <span>{{ group.group_name }}</span>
+        </li>
     </ul>
-  </b-col>
+    <div class="sidebar-hr"></div>
+  </nav>
 </template>
 
 <script>
-// import store from '@/store'
-// import { mapState, mapAction } from 'vuex'
+import store from '@/store'
+import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'LeftNavigation'
+  name: 'LeftNavigation',
+  data () {
+    return {
+    }
+  },
+  computed: {
+    ...mapState('todoGroup', ['allTogosGroup', 'activeGroup'])
+  },
+  methods: {
+    ...mapActions('todoGroup', ['GET_TODOS_GROUP']),
+    selectGroup (group) {
+      store.dispatch('todoGroup/ADD_SELECT_GROUP', group)
+    }
+  },
+  created () {
+    this.GET_TODOS_GROUP().then(() => {
+      store.dispatch('todoGroup/ADD_SELECT_GROUP', this.allTogosGroup[0])
+    })
+  }
 }
 </script>

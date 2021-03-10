@@ -1,17 +1,11 @@
 <template>
-  <div id="nav">
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">TodoList</b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item to="About">About</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+  <div id="nav" class="navbar">
+  <button class="navbar__btn">
+    <svg class="menu_icon" width="24" height="24" viewBox="0 0 24 24">
+      <path fill="currentColor" fill-rule="evenodd" d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z">
+      </path>
+    </svg>
+  </button>
   </div>
 </template>
 
