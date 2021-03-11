@@ -1,4 +1,4 @@
-import { getTodo, getTodos } from '../services/todo.service'
+import { getTodo, getTodos, getTodosByGroup } from '../services/todo.service'
 
 const mutations = {
   SET_TODO (state, todo) {
@@ -6,6 +6,9 @@ const mutations = {
   },
   SET_TODOS (state, todos) {
     state.todos = todos
+  },
+  SET_TODOS_BY_GROUP (state, todosByGroup) {
+    state.todosByGroup = todosByGroup
   },
   SET_TODO_ERROR (state, error) {
     state.todoError = error
@@ -28,12 +31,21 @@ const actions = {
     } catch (error) {
       commit('SET_TODO_ERROR', error)
     }
+  },
+  async GET_TODOS_BY_GROUP ({ commit }, id) {
+    try {
+      const todoByGroup = await getTodosByGroup(id)
+      commit('SET_TODOS_BY_GROUP', todoByGroup)
+    } catch (error) {
+      commit('SET_TODO_ERROR', error)
+    }
   }
 }
 
 const state = () => ({
   todo: {},
   todos: [],
+  todosByGroup: [],
   todoError: null
 })
 

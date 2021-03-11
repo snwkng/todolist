@@ -6,8 +6,11 @@ const getTodos = () => request({ url: 'todo', method: 'get' })
 
 const getAllTodoGroup = () => request({ url: 'todoGroup', method: 'get' })
 
+const getTodosByGroup = (groupID) => request({ url: `getTodoFromGroups/${groupID}`, method: 'get' })
+
 export {
   getTodo,
   getTodos,
-  getAllTodoGroup
+  getAllTodoGroup,
+  getTodosByGroup
 }

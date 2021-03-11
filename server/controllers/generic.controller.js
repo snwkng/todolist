@@ -1,6 +1,14 @@
 const boom = require('boom')
 
 const genericCrud = (model) => ({
+  async getTodoFromGroups ({ params: { groupID }, res }) {
+    try {
+      const items = await model.find({ todo_group: groupID })
+      return res.status(200).send(items)
+    } catch (error) {
+      return res.status(400).send(boom.boomify(error))
+    }
+  },
   async get ({ params: { id }, res }) {
     try {
       const item = await model.findById(id)
