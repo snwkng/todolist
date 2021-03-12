@@ -24,13 +24,16 @@ export default {
   },
   methods: {
     ...mapActions('todoGroup', ['GET_TODOS_GROUP']),
+    ...mapActions('todo', ['GET_TODOS_BY_GROUP']),
     selectGroup (group) {
       store.dispatch('todoGroup/ADD_SELECT_GROUP', group)
     }
   },
   created () {
     this.GET_TODOS_GROUP().then(() => {
-      store.dispatch('todoGroup/ADD_SELECT_GROUP', this.allTogosGroup[0])
+      store.dispatch('todoGroup/ADD_SELECT_GROUP', this.allTogosGroup[0]).then(() => {
+        this.GET_TODOS_BY_GROUP(this.activeGroup._id)
+      })
     })
   }
 }

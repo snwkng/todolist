@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 routes.forEach(element => {
-  app.use(`/api/v1/${element}`, require(`./routes/${element}`))
+  app.use(`/api/${element}`, require(`./routes/${element}`))
 })
 // объявим роуты
 const PORT = 3000

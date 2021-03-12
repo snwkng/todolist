@@ -44,13 +44,10 @@ export default {
     ...mapState('todoGroup', ['activeGroup'])
   },
   methods: {
-    ...mapActions('todo', ['GET_TODOS', 'GET_TODO'])
+    ...mapActions('todo', ['GET_TODOS', 'GET_TODOS_BY_GROUP'])
   },
   created () {
     this.GET_TODOS()
-  },
-  mounted () {
-    this.GET_TODO('6033c134def4ad3bb4052901')
   }
 }
 </script>

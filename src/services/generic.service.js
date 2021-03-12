@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:3000/api/v1'
+const BASE_URL = 'http://localhost:3000/api'
 
-export const request = async ({ url, method, params = {}, data = {} }) => {
-  const response = await axios[method](`${BASE_URL}/${url}`, params, data)
+export const request = async ({ url, method, data = {} }) => {
+  const response = await axios[method](`${BASE_URL}/${url}`, data)
   return response.data
 }
