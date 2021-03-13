@@ -1,9 +1,9 @@
 .todo {
 	display: flex;
-	flex: 0 1 75%;
 	flex-direction: column;
 	min-height: calc(100vh - #{$navbar-height});
 	position: relative;
+	width: calc(100% - #{$left-sidebar-width});
 	
 	&-header {
 		padding: 30px 60px 15px 60px;

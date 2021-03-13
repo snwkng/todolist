@@ -11,7 +11,8 @@ import {
   faChevronDown,
   faCalendarDay,
   faCalendarAlt,
-  faStar
+  faStar,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faEdit,
@@ -20,7 +21,8 @@ library.add(
   faChevronDown,
   faCalendarDay,
   faCalendarAlt,
-  faStar
+  faStar,
+  faPlus
 )
 
 Vue.config.productionTip = false
