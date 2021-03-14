@@ -5,18 +5,12 @@
         :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]"
         @click="selectGroup(group)"
         v-if="group.icon">
-        <!-- <svg>
-          <path
-            d="M20,3 L19,3 L19,1 L17,1 L17,3 L7,3 L7,1 L5,1 L5,3 L4,3 C2.9,3 2,3.9 2,5 L2,21 C2,22.1 2.9,23 4,23 L20,23 C21.1,23 22,22.1 22,21 L22,5 C22,3.9 21.1,3 20,3 Z M20,21 L4,21 L4,10 L20,10 L20,21 Z M20,8 L4,8 L4,5 L20,5 L20,8 Z"
-            fill="#1D1D1D">
-            </path>
-        </svg> -->
-        <font-awesome-icon class="sidebar-icon" :icon="group.icon" />
+        <span class="sidebar-icon material-icons">{{group.icon}}</span>
+        <!-- <font-awesome-icon class="sidebar-icon" :icon="group.icon" /> -->
         <span>{{ group.group_name }}</span>
         </li>
     </ul>
     <div class="sidebar-hr"></div>
-
      <ul class="sidebar-list" v-for="(group, index) in allTogosGroup" :key="index">
       <li
         :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]"
@@ -33,7 +27,7 @@
         @click="activateEditor"
         v-if="!canCreate">
         <!-- <font-awesome-icon class="sidebar-icon" icon="plus" /> -->
-        <svg width="15" height="15" class="sidebar-icon">
+        <svg width="14" height="14" class="sidebar-icon">
           <path
             d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
             fill="currentColor"
@@ -47,7 +41,7 @@
         v-else>
         <input
         type="text"
-        class="create-list__input"
+        class="editor create-list__editor"
         v-model="listName"
         @keydown.esc="cancelCreate">
         <div class="create-list__options">

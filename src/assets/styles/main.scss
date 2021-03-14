@@ -1,4 +1,6 @@
-$font-family: Roboto, Helvetica Neue, sans-serif;
+$font-family: Roboto,
+Helvetica Neue,
+sans-serif;
 $navbar-height: 45px;
 $border-radius: .25rem;
 $padding: 15px;
@@ -36,17 +38,35 @@ button {
 .main {
     display: flex;
 }
-.create, .cancel {
+
+.create,
+.cancel {
     border-radius: $border-radius;
     margin-right: 5px;
     outline: none;
     padding: 6px 12px;
     transition: all .3s ease-in-out;
 }
+
 .create {
     background-color: #068E86;
     color: white;
 }
+
 .cancel:hover {
     text-decoration: underline;
+}
+
+.editor {
+    border: 1px solid #b6dbd9;
+    border-radius: $border-radius;
+    outline: none;
+    width: 100%;
+}
+
+.create-list__options {
+    align-items: center;
+    display: flex;
+    padding: 10px 0 0;
+    width: 100%;
 }

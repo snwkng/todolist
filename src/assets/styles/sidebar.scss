@@ -63,7 +63,6 @@
 
     &-icon {
         color: #bfbdbd;
-        font-size: 1.3rem;
         margin-right: 8px;
         text-align: center;
         transition: color .2s ease-in-out;
@@ -86,19 +85,7 @@
         margin-top: 20px;
     }
 
-    .create-list__input {
-        border: 1px solid #b6dbd9;
-        border-radius: $border-radius;
-        outline: none;
+    .create-list__editor {
         padding: 10px;
-        width: 100%;
-    }
-
-    .create-list__options {
-        align-items: center;
-        display: flex;
-        padding: 10px 0 0;
-        width: 100%;
-
     }
 }
