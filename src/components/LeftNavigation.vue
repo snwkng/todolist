@@ -77,10 +77,11 @@ export default {
       })
     },
     activateEditor () {
-      this.canCreate = !this.canCreate
+      this.canCreate = true
     },
     cancelCreate () {
-      this.canCreate = !this.canCreate
+      this.canCreate = false
+      this.listName = 'Список без названия'
     },
     createList () {
       const newList = {
@@ -88,7 +89,7 @@ export default {
       }
       store.dispatch('todoGroup/ADD_GROUP', newList).then(() => {
         this.listName = 'Список без названия'
-        this.canCreate = !this.canCreate
+        this.canCreate = false
       })
     }
   },

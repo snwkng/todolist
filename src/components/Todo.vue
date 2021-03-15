@@ -4,24 +4,11 @@
      <h1>{{activeGroup.group_name}}</h1>
    </div>
    <ul class="todo-list">
-     <li class="todo-list__item">
+     <li class="todo-list__item" v-for="todo in todosByGroup" :key="todo._id">
        <input type="checkbox" class="item-checkbox" />
        <div class="item-content">
          <div class="item-content__main">
-            <div class="item-content__main-name">Ирка пупок</div>
-         <div class="item-content__main-option"></div>
-         </div>
-         <div class="item-content__other">
-           <span class="item-content__other-icon material-icons">event</span>
-           <span class="item-content__other-text">18 марта</span>
-         </div>
-       </div>
-     </li>
-     <li class="todo-list__item">
-       <input type="checkbox" class="item-checkbox" />
-       <div class="item-content">
-         <div class="item-content__main">
-            <div class="item-content__main-name">Сказать Ирке что она ЖОПА</div>
+            <div class="item-content__main-name">{{ todo.todo_name }}</div>
          <div class="item-content__main-option"></div>
          </div>
          <div class="item-content__other">
@@ -64,7 +51,7 @@
 </template>
 
 <script>
-// import store from '@/store'
+import store from '@/store'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -77,7 +64,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('todo', ['todos']),
+    ...mapState('todo', ['todosByGroup']),
     ...mapState('todoGroup', ['activeGroup'])
   },
   methods: {
@@ -87,9 +74,17 @@ export default {
     },
     cancelCreate () {
       this.showCreateTodoEditor = false
+      this.todo = ''
     },
     addTodo () {
-
+      const todo = {
+        todo_name: this.todo,
+        todo_group: this.activeGroup._id
+      }
+      store.dispatch('todo/CREATE_TODO', todo).then(() => {
+        this.showCreateTodoEditor = false
+        this.todo = ''
+      })
     }
   },
   created () {

@@ -1,7 +1,8 @@
 import {
   getTodo,
   getTodos,
-  getTodosByGroup
+  getTodosByGroup,
+  createTodo
 } from '@/services/todo.service'
 
 export default {
@@ -25,6 +26,14 @@ export default {
     try {
       const todoByGroup = await getTodosByGroup(id)
       commit('SET_TODOS_BY_GROUP', todoByGroup)
+    } catch (error) {
+      commit('SET_TODO_ERROR', error)
+    }
+  },
+  async CREATE_TODO ({ dispatch, commit }, todo) {
+    try {
+      await createTodo(todo)
+      dispatch('GET_TODOS_BY_GROUP', todo.todo_group)
     } catch (error) {
       commit('SET_TODO_ERROR', error)
     }
