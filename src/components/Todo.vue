@@ -16,6 +16,11 @@
            <span class="item-content__other-text">18 марта</span>
          </div>
        </div>
+       <div class="item-options">
+         <span class="material-icons">mode_edit_outline</span>
+         <span class="material-icons">delete_outline</span>
+         <span class="material-icons">more_horiz</span>
+       </div>
      </li>
    </ul>
 

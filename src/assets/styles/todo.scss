@@ -20,6 +20,7 @@
 			border-bottom: 1px solid #e0e0e0;
 			display: flex;
 			padding: 10px 15px 10px 0;
+			position: relative;
 		}
 	}
 }
@@ -46,6 +47,11 @@
 			margin-right: 3px;
 		}
 	}
+}
+
+.item-options {
+	position: absolute;
+	right: 0;
 }
 
 .create-todo {
@@ -75,12 +81,12 @@
 
 .todo-editor {
     display: flex;
-	font-family: $font-family;
 	min-height: 50px;
     position: relative;
     width: 100%;
 
 	&__area {
+		font-family: $font-family;
 		min-width: 100%;
 		padding: 10px 10px 40px 10px;
 		resize: none;
