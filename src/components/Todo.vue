@@ -12,14 +12,20 @@
          <div class="item-content__main-option"></div>
          </div>
          <div class="item-content__other">
-           <span class="item-content__other-icon material-icons">event</span>
+           <v-icon class="item-content__other-icon" name="calendar"></v-icon>
            <span class="item-content__other-text">18 марта</span>
          </div>
        </div>
        <div class="item-options">
-         <span class="material-icons">mode_edit_outline</span>
-         <span class="material-icons">delete_outline</span>
-         <span class="material-icons">more_horiz</span>
+         <div class="item-options__option" title="edit">
+           <v-icon class="icon" name="edit-3"></v-icon>
+         </div>
+         <div class="item-options__option" title="delete" @click="deleteTodo(todo)">
+           <v-icon class="icon" name="trash-2"></v-icon>
+         </div>
+         <div class="item-options__option" title="other settings">
+           <v-icon class="icon" name="more-horizontal"></v-icon>
+         </div>
        </div>
      </li>
    </ul>
@@ -90,6 +96,9 @@ export default {
         this.showCreateTodoEditor = false
         this.todo = ''
       })
+    },
+    deleteTodo (todo) {
+      store.dispatch('todo/DELETE_TODO', todo)
     }
   },
   created () {

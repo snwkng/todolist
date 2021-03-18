@@ -7,6 +7,6 @@ router.route('/:id').get(todo.get)
 router.route('/create').post(todo.create)
 router.route('/').get(todo.getAll)
 router.route('/:id').put(todo.update)
-router.route('/:id').delete(todo.delete)
+router.route('/delete/:id').delete(todo.delete)
 
 module.exports = router

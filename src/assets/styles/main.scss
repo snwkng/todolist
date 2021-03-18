@@ -39,6 +39,13 @@ button {
     display: flex;
 }
 
+.icon {
+    color: #bfbdbd;
+    cursor: pointer;
+    text-align: center;
+    width: 18px;
+}
+
 .create,
 .cancel {
     border-radius: $border-radius;

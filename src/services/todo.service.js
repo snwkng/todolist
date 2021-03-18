@@ -5,6 +5,7 @@ const getTodos = () => request({ url: 'todo', method: 'get' })
 const getTodosByGroup = (groupID) => request({ url: `todo/${groupID}`, method: 'get' })
 
 const createTodo = (todo) => request({ url: 'todo/create', method: 'post', data: todo })
+const deleteTodo = (id) => request({ url: `todo/delete/${id}`, method: 'delete' })
 
 // todo group
 const getAllTodoGroup = () => request({ url: 'todoGroup', method: 'get' })
@@ -15,6 +16,7 @@ export {
   getTodos,
   getAllTodoGroup,
   createTodo,
+  deleteTodo,
 
   getTodosByGroup,
   addListForTodoGroup

@@ -5,8 +5,7 @@
         :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]"
         @click="selectGroup(group)"
         v-if="group.icon">
-        <span class="sidebar-icon material-icons">{{group.icon}}</span>
-        <!-- <font-awesome-icon class="sidebar-icon" :icon="group.icon" /> -->
+        <v-icon class="icon sidebar-icon" :name="group.icon"></v-icon>
         <span>{{ group.group_name }}</span>
         </li>
     </ul>
