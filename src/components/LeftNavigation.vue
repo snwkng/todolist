@@ -1,5 +1,5 @@
 <template>
-  <nav class="sidebar">
+  <nav class="sidebar" id="sidebar">
     <ul class="sidebar-list" v-for="group in allTogosGroup" :key="group.group_name">
       <li
         :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]"
@@ -7,7 +7,7 @@
         v-if="group.icon">
         <v-icon class="icon sidebar-icon" :name="group.icon"></v-icon>
         <span>{{ group.group_name }}</span>
-        </li>
+      </li>
     </ul>
     <div class="sidebar-hr"></div>
      <ul class="sidebar-list" v-for="(group, index) in allTogosGroup" :key="index">
