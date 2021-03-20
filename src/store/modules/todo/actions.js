@@ -3,7 +3,8 @@ import {
   getTodos,
   getTodosByGroup,
   createTodo,
-  deleteTodo
+  deleteTodo,
+  updateTodo
 } from '@/services/todo.service'
 
 export default {
@@ -42,6 +43,14 @@ export default {
   async DELETE_TODO ({ dispatch, commit }, todo) {
     try {
       await deleteTodo(todo._id)
+      dispatch('GET_TODOS_BY_GROUP', todo.todo_group)
+    } catch (error) {
+      commit('SET_TODO_ERROR', error)
+    }
+  },
+  async UPDATE_TODO ({ dispatch, commit }, todo) {
+    try {
+      await updateTodo(todo)
       dispatch('GET_TODOS_BY_GROUP', todo.todo_group)
     } catch (error) {
       commit('SET_TODO_ERROR', error)

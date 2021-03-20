@@ -1,22 +1,22 @@
 <template>
   <nav class="sidebar" id="sidebar">
-    <ul class="sidebar-list" v-for="group in allTogosGroup" :key="group.group_name">
+    <ul class="sidebar-list">
       <li
-        :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]"
-        @click="selectGroup(group)"
-        v-if="group.icon">
-        <v-icon class="icon sidebar-icon" :name="group.icon"></v-icon>
-        <span>{{ group.group_name }}</span>
+        v-for="list in mainList" :key="list.group_name"
+        :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
+        @click="selectGroup(list)">
+        <v-icon class="icon sidebar-icon" :name="list.icon"></v-icon>
+        <span>{{ list.group_name }}</span>
       </li>
     </ul>
     <div class="sidebar-hr"></div>
-     <ul class="sidebar-list" v-for="(group, index) in allTogosGroup" :key="index">
+     <ul class="sidebar-list">
       <li
-        :class="['sidebar-list__item', {'active': activeGroup._id === group._id}]"
-        @click="selectGroup(group)"
-        v-if="!group.icon">
+        v-for="(list, index) in userList" :key="index"
+        :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
+        @click="selectGroup(list)">
         <div class="sidebar-circle"></div>
-        <span>{{ group.group_name }}</span>
+        <span>{{ list.group_name }}</span>
         </li>
     </ul>
 
@@ -65,7 +65,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('todoGroup', ['allTogosGroup', 'activeGroup'])
+    ...mapState('todoGroup', ['allTogosGroup', 'activeGroup']),
+    mainList () {
+      return this.allTogosGroup.filter(item => item.icon !== '')
+    },
+    userList () {
+      return this.allTogosGroup.filter(item => item.icon === '')
+    }
   },
   methods: {
     ...mapActions('todoGroup', ['GET_TODOS_GROUP']),

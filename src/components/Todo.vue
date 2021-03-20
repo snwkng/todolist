@@ -5,7 +5,7 @@
    </div>
    <ul class="todo-list">
      <li class="todo-list__item" v-for="todo in todosByGroup" :key="todo._id">
-       <input type="checkbox" class="item-checkbox" />
+       <input type="checkbox" class="item-checkbox" v-model="todo.todo_done" @change="doneTodo(todo)" />
        <div class="item-content">
          <div class="item-content__main">
             <div class="item-content__main-name">{{ todo.todo_name }}</div>
@@ -99,6 +99,9 @@ export default {
     },
     deleteTodo (todo) {
       store.dispatch('todo/DELETE_TODO', todo)
+    },
+    doneTodo (todo) {
+      store.dispatch('todo/UPDATE_TODO', todo)
     }
   },
   created () {

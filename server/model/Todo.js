@@ -8,6 +8,10 @@ const schema = new Schema({
   todo_group: {
     type: ObjectId,
     ref: 'TodoGroup'
+  },
+  todo_done: {
+    type: Boolean,
+    default: false
   }
 })
 
