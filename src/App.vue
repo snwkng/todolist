@@ -5,16 +5,19 @@
       <LeftNavigation />
       <router-view/>
     </div>
+    <modal />
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
 import LeftNavigation from '@/components/LeftNavigation'
+import Modal from './components/Modal.vue'
 export default {
   components: {
     Navbar,
-    LeftNavigation
+    LeftNavigation,
+    Modal
   }
 }
 </script>
