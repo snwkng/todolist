@@ -63,11 +63,36 @@
         &__create:hover .sidebar-icon {
             color: #acabab;
         }
+
+        &__custom {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            &-icon {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                position: relative;
+            }
+        }
     }
 
     &-icon {
         margin-right: 8px;
         transition: color .2s ease-in-out;
+
+        &__custom {
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity .1s ease-out;
+            width: 20px;
+            z-index: 20;
+        }
+        &__custom:hover {
+            color: #333;
+        }
     }
 
     .active {
@@ -76,7 +101,6 @@
         border-top-right-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
         font-weight: bold;
-        pointer-events: none;
     }
 
     &-hr {
@@ -94,4 +118,8 @@
         font-family: $font-family;
         padding: 10px;
     }
+}
+
+.sidebar-list__item:hover .sidebar-icon__custom {
+    opacity: 1;
 }

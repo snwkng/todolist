@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <Navbar />
     <button id="show-modal" @click="showModal = true">Show Modal</button>
     <div class="layout">

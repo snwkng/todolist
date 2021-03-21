@@ -15,8 +15,15 @@
         v-for="(list, index) in userList" :key="index"
         :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
         @click="selectGroup(list)">
-        <div class="sidebar-circle"></div>
-        <span>{{ list.group_name }}</span>
+        <div class="sidebar-list__custom">
+          <div class="sidebar-list__custom-title">
+            <span>{{ list.group_name }}</span>
+          </div>
+          <div class="sidebar-list__custom-icon" @click="openMenu">
+            <v-icon class="icon sidebar-icon__custom" name="more-horizontal"></v-icon>
+            <help-menu v-if="showMenu" />
+          </div>
+        </div>
         </li>
     </ul>
 
@@ -25,7 +32,6 @@
         class="sidebar-list__create"
         @click="activateEditor"
         v-if="!canCreate">
-        <!-- <font-awesome-icon class="sidebar-icon" icon="plus" /> -->
         <svg width="14" height="14" class="sidebar-icon">
           <path
             d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
@@ -55,12 +61,17 @@
 <script>
 import store from '@/store'
 import { mapState, mapActions } from 'vuex'
+import HelpMenu from './HelpMenu.vue'
 
 export default {
   name: 'LeftNavigation',
+  components: {
+    HelpMenu
+  },
   data () {
     return {
       canCreate: false,
+      showMenu: false,
       listName: 'Список без названия'
     }
   },
@@ -96,6 +107,9 @@ export default {
         this.listName = 'Список без названия'
         this.canCreate = false
       })
+    },
+    openMenu () {
+      this.showMenu = !this.showMenu
     }
   },
   created () {
