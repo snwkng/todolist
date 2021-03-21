@@ -1,11 +1,12 @@
 <template>
   <div id="app">
     <Navbar />
+    <button id="show-modal" @click="showModal = true">Show Modal</button>
     <div class="layout">
       <LeftNavigation />
       <router-view/>
     </div>
-    <modal />
+    <modal v-if="showModal" @close="showModal = false" />
   </div>
 </template>
 
@@ -18,6 +19,11 @@ export default {
     Navbar,
     LeftNavigation,
     Modal
+  },
+  data () {
+    return {
+      showModal: false
+    }
   }
 }
 </script>

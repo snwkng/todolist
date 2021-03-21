@@ -1,21 +1,33 @@
 <template>
-  <div class="modal main-modal" id="main-modal">
-     <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title">Добавить проект</h3>
-             <v-icon class="icon" name="info"></v-icon>
-          </div>
-          <div class="modal-body">
-            Вы действительно хотите удалить <span>asdasd</span>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="cancel">Отмена</button>
-            <button type="button" class="create">Удалить</button>
+  <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
+
+              <div class="modal-header">
+                <slot name="header">
+                  default header
+                </slot>
+              </div>
+
+              <div class="modal-body">
+                <slot name="body">
+                  default body
+                </slot>
+              </div>
+
+              <div class="modal-footer">
+                <slot name="footer">
+                  default footer
+                  <button class="modal-default-button" @click="$emit('close')">
+                    OK
+                  </button>
+                </slot>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-  </div>
+      </transition>
 </template>
 
 <script>
