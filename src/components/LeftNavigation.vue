@@ -19,10 +19,7 @@
           <div class="sidebar-list__custom-title">
             <span>{{ list.group_name }}</span>
           </div>
-          <div class="sidebar-list__custom-icon" @click="openMenu">
-            <v-icon class="icon sidebar-icon__custom" name="more-horizontal"></v-icon>
-            <help-menu v-if="showMenu" />
-          </div>
+          <help-menu />
         </div>
         </li>
     </ul>
