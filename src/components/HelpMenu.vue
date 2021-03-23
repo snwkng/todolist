@@ -1,11 +1,24 @@
 <template>
-  <div class="sidebar-list__custom-icon" @click.stop="showMenu = !showMenu">
+  <div
+    class="sidebar-list__custom-icon"
+    @click.stop="showMenu = !showMenu"
+    @keyup.esc="showMenu = false"
+  >
     <v-icon class="icon sidebar-icon__custom" name="more-horizontal"></v-icon>
-     <div class="help-menu" v-if="showMenu">
-       <ul class="help-menu__list">
-         <li class="help-menu__list-item">удалить проект</li>
-       </ul>
-  </div>
+    <div class="help-menu" v-if="showMenu">
+      <ul class="help-menu__list">
+        <li class="help-menu__list-item">
+          <v-icon class="help-menu__list-item-icon" name="edit-3" />
+          <span class="help-menu__list-item-text">редактировать группу</span>
+        </li>
+        <li class="help-menu__list-item">
+          <v-icon class="help-menu__list-item-icon" name="trash" />
+          <span class="help-menu__list-item-text" @click="callDeleteModal"
+            >удалить группу
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -15,6 +28,9 @@ export default {
     return {
       showMenu: false
     }
+  },
+  methods: {
+    callDeleteModal () {}
   }
 }
 </script>

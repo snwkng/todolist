@@ -9,6 +9,7 @@
     position: fixed;
     transition: left .3s ease-out;
     width: $left-sidebar-width;
+    z-index: 1;
 
     &-list {
         list-style: none;
