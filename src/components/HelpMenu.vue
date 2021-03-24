@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="sidebar-list__custom-icon"
-    @click.stop="showMenu = !showMenu"
-    @keyup.esc="showMenu = false"
-  >
+  <div class="sidebar-list__custom-icon" @click.stop="showMenu = !showMenu">
     <v-icon class="icon sidebar-icon__custom" name="more-horizontal"></v-icon>
     <div class="help-menu" v-if="showMenu">
       <ul class="help-menu__list">
@@ -21,7 +17,11 @@
     </div>
   </div>
 </template>
+
 <script>
+
+import store from '@/store'
+
 export default {
   name: 'HelpMenu',
   data () {
@@ -30,7 +30,9 @@ export default {
     }
   },
   methods: {
-    callDeleteModal () {}
+    callDeleteModal () {
+      store.dispatch('modal/SET_SHOW_MODAL', true)
+    }
   }
 }
 </script>

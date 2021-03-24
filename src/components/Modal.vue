@@ -19,7 +19,7 @@
               <div class="modal-footer">
                 <slot name="footer">
                   <button type="button" class="cancel" @click="$emit('close')">Отмена</button>
-                  <button type="button" class="delete">Удалить</button>
+                  <button type="button" class="delete" @click="deleteData">Удалить</button>
                 </slot>
               </div>
             </div>
@@ -33,6 +33,11 @@ export default {
   name: 'Modal',
   data () {
     return {
+
+    }
+  },
+  methods: {
+    deleteData () {
 
     }
   },

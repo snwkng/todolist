@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import store from '@/store'
 import Navbar from '@/components/Navbar'
 import LeftNavigation from '@/components/LeftNavigation'
 import Modal from './components/Modal.vue'
@@ -22,7 +23,16 @@ export default {
   },
   data () {
     return {
-      showModal: false
+    }
+  },
+  computed: {
+    showModal: {
+      get () {
+        return store.state.modal.showModal
+      },
+      set (show) {
+        store.dispatch('modal/SET_SHOW_MODAL', show)
+      }
     }
   }
 }
