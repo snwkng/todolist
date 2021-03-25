@@ -24,6 +24,12 @@ import store from '@/store'
 
 export default {
   name: 'HelpMenu',
+  props: {
+    info: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data () {
     return {
       showMenu: false
@@ -31,7 +37,9 @@ export default {
   },
   methods: {
     callDeleteModal () {
-      store.dispatch('modal/SET_SHOW_MODAL', true)
+      store.dispatch('modal/SET_SHOW_MODAL', true).then(() => {
+        store.dispatch('modal/SET_MODAL_INFO', this.info)
+      })
     }
   }
 }

@@ -6,13 +6,13 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  default header
+                  <v-icon name="info" />
                 </slot>
               </div>
 
               <div class="modal-body">
                 <slot name="body">
-                  default body
+                  <span>Вы дейтсвительно хотите удалить <strong class="text-danger">{{modalInfo.group_name}}</strong></span>
                 </slot>
               </div>
 
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import store from '@/store'
 export default {
   name: 'Modal',
   data () {
@@ -36,9 +38,14 @@ export default {
 
     }
   },
+  computed: {
+    ...mapState('modal', ['modalInfo'])
+  },
   methods: {
     deleteData () {
-
+      store.dispatch('todoGroup/DELETE_TODO_GROUP', this.modalInfo).then(() => {
+        store.dispatch('modal/SET_SHOW_MODAL', false)
+      })
     }
   },
   mounted () {

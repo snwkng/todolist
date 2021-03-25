@@ -5,7 +5,7 @@ export default {
   SET_TODO_ERROR (state, error) {
     state.todoError = error
   },
-  SET_SELECT_GROUP (state, group) {
+  SET_SELECT_TODO_GROUP (state, group) {
     state.activeGroup = group
   }
 }

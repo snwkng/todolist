@@ -19,7 +19,7 @@
           <div class="sidebar-list__custom-title">
             <span>{{ list.group_name }}</span>
           </div>
-          <help-menu />
+          <help-menu :info="list" />
         </div>
         </li>
     </ul>
@@ -85,7 +85,7 @@ export default {
     ...mapActions('todoGroup', ['GET_TODOS_GROUP']),
     ...mapActions('todo', ['GET_TODOS_BY_GROUP']),
     selectGroup (group) {
-      store.dispatch('todoGroup/ADD_SELECT_GROUP', group).then(() => {
+      store.dispatch('todoGroup/ADD_SELECT_TODO_GROUP', group).then(() => {
         this.GET_TODOS_BY_GROUP(this.activeGroup._id)
       })
     },
@@ -100,7 +100,7 @@ export default {
       const newList = {
         group_name: this.listName
       }
-      store.dispatch('todoGroup/ADD_GROUP', newList).then(() => {
+      store.dispatch('todoGroup/ADD_TODO_GROUP', newList).then(() => {
         this.listName = 'Список без названия'
         this.canCreate = false
       })
@@ -111,7 +111,7 @@ export default {
   },
   created () {
     this.GET_TODOS_GROUP().then(() => {
-      store.dispatch('todoGroup/ADD_SELECT_GROUP', this.allTogosGroup[0]).then(() => {
+      store.dispatch('todoGroup/ADD_SELECT_TODO_GROUP', this.allTogosGroup[0]).then(() => {
         this.GET_TODOS_BY_GROUP(this.activeGroup._id)
       })
     })
