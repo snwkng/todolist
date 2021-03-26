@@ -19,7 +19,8 @@
   }
   
   .modal-container {
-    min-width: 500px;
+    min-width: 360px;
+    max-width: 600px;
     margin: 0px auto;
     padding: 20px 30px;
     background-color: #fff;
@@ -32,9 +33,18 @@
     padding: 5px 0;
   }
 
-  .modal-header h3 {
+  .modal-header {
     margin-top: 0;
-    color: #42b983;
+
+    &__title {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      h3 {
+        margin: 0;
+      }
+    }
   }
   
   .modal-body {

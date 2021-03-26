@@ -15,7 +15,8 @@
         v-for="(list, index) in userList" :key="index"
         :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
         @click="selectGroup(list)">
-        <div class="sidebar-list__custom">
+        <input type="text" v-if="editableList && editableList._id === list._id" v-model="editableList.group_name">
+        <div class="sidebar-list__custom" v-else>
           <div class="sidebar-list__custom-title">
             <span>{{ list.group_name }}</span>
           </div>
@@ -69,7 +70,8 @@ export default {
     return {
       canCreate: false,
       showMenu: false,
-      listName: 'Список без названия'
+      listName: 'Список без названия',
+      editableList: null
     }
   },
   computed: {

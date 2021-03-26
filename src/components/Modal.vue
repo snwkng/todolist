@@ -6,20 +6,35 @@
 
               <div class="modal-header">
                 <slot name="header">
-                  <v-icon name="info" />
+                  <div v-if="modalType === 'delete'">
+                    <v-icon name="info" />
+                  </div>
+                  <div class="modal-header__title" v-if="modalType === 'edit'">
+                    <h3>Редактировать проект</h3>
+                    <v-icon name="info" />
+                  </div>
                 </slot>
               </div>
 
               <div class="modal-body">
                 <slot name="body">
-                  <span>Вы дейтсвительно хотите удалить <strong class="text-danger">{{modalInfo.group_name}}</strong></span>
+                  <div v-if="modalType === 'delete'">
+                    <span>Вы дейтсвительно хотите удалить <strong class="text-danger">{{modalInfo.group_name}}</strong></span>
+                  </div>
+                  <div v-if="modalType === 'edit'">
+                    <label for="edit-name">Название </label>
+                    <input id="edit-name" type="text" v-model="modalInfo.group_name">
+                  </div>
                 </slot>
               </div>
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button type="button" class="cancel" @click="$emit('close')">Отмена</button>
-                  <button type="button" class="delete" @click="deleteData">Удалить</button>
+                  <div>
+                    <button type="button" class="cancel" @click="$emit('close')">Отмена</button>
+                    <button type="button" class="delete" v-if="modalType === 'delete'" @click="deleteData">Удалить</button>
+                    <button type="button" class="delete" v-if="modalType === 'edit'" @click="saveData">Сохранить</button>
+                  </div>
                 </slot>
               </div>
             </div>
@@ -39,13 +54,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('modal', ['modalInfo'])
+    ...mapState('modal', ['modalInfo', 'modalType'])
   },
   methods: {
     deleteData () {
       store.dispatch('todoGroup/DELETE_TODO_GROUP', this.modalInfo).then(() => {
         store.dispatch('modal/SET_SHOW_MODAL', false)
       })
+    },
+    saveData () {
+
     }
   },
   mounted () {
