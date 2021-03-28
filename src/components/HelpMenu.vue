@@ -3,14 +3,13 @@
     <v-icon class="icon sidebar-icon__custom" name="more-horizontal"></v-icon>
     <div class="help-menu" v-if="showMenu">
       <ul class="help-menu__list">
-        <li class="help-menu__list-item">
+        <li class="help-menu__list-item" @click="callEditModal">
           <v-icon class="help-menu__list-item-icon" name="edit-3" />
-          <span class="help-menu__list-item-text" @click="callEditModal">редактировать группу</span>
+          <span class="help-menu__list-item-text">редактировать группу</span>
         </li>
-        <li class="help-menu__list-item">
+        <li class="help-menu__list-item" @click="callDeleteModal">
           <v-icon class="help-menu__list-item-icon" name="trash" />
-          <span class="help-menu__list-item-text" @click="callDeleteModal"
-            >удалить группу
+          <span class="help-menu__list-item-text">удалить группу
           </span>
         </li>
       </ul>
@@ -32,13 +31,15 @@ export default {
   },
   data () {
     return {
-      showMenu: false
+      showMenu: false,
+      modalInfo: {}
     }
   },
   methods: {
     callEditModal () {
+      this.modalInfo = Object.assign({}, this.info)
       store.dispatch('modal/SET_SHOW_MODAL', { showModal: true, modalType: 'edit' }).then(() => {
-        store.dispatch('modal/SET_MODAL_INFO', this.info)
+        store.dispatch('modal/SET_MODAL_INFO', this.modalInfo)
       })
     },
     callDeleteModal () {

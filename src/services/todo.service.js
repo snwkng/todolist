@@ -12,6 +12,7 @@ const updateTodo = (todo) => request({ url: `todo/update/${todo._id}`, method: '
 const getAllTodoGroup = () => request({ url: 'todoGroup', method: 'get' })
 const addListForTodoGroup = (data) => request({ url: 'todoGroup', method: 'post', data: data })
 const deleteTodoGroup = (id) => request({ url: `todoGroup/delete/list/${id}`, method: 'delete' })
+const updateTodoGroup = (groupData) => request({ url: `todoGroup/update/list/${groupData._id}`, method: 'put', data: groupData })
 
 export {
   getTodo,
@@ -23,5 +24,6 @@ export {
 
   getTodosByGroup,
   addListForTodoGroup,
-  deleteTodoGroup
+  deleteTodoGroup,
+  updateTodoGroup
 }

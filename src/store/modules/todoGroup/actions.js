@@ -1,4 +1,9 @@
-import { getAllTodoGroup, addListForTodoGroup, deleteTodoGroup } from '@/services/todo.service'
+import {
+  getAllTodoGroup,
+  addListForTodoGroup,
+  deleteTodoGroup,
+  updateTodoGroup
+} from '@/services/todo.service'
 
 export default {
   async GET_TODOS_GROUP ({ commit }) {
@@ -22,6 +27,14 @@ export default {
   async DELETE_TODO_GROUP ({ dispatch, commit }, todoGroup) {
     try {
       await deleteTodoGroup(todoGroup._id)
+      dispatch('GET_TODOS_GROUP')
+    } catch (error) {
+      commit('SET_TODO_ERROR', error)
+    }
+  },
+  async UPDATE_TODO_GROUP ({ dispatch, commit }, todoGroup) {
+    try {
+      await updateTodoGroup(todoGroup)
       dispatch('GET_TODOS_GROUP')
     } catch (error) {
       commit('SET_TODO_ERROR', error)

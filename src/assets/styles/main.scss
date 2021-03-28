@@ -9,97 +9,113 @@ $left-sidebar-width: 300px;
 *,
 :after,
 :before {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html {
-    box-sizing: border-box;
-    font-family: $font-family;
-    font-size: 14px;
-    line-height: 1.25;
+  box-sizing: border-box;
+  font-family: $font-family;
+  font-size: 14px;
+  line-height: 1.25;
 }
 
 body {
-    margin: 0px;
+  margin: 0px;
+}
+
+input {
+  border: 1px solid #aca9a9;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  padding: 5px;
+  transition: border .2s ease-out;
+
+  &:focus {
+    border: 1px solid black;
+    outline: none;
+  }
 }
 
 ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 button {
-    background: transparent;
-    border: none;
-    cursor: pointer
+  background: transparent;
+  border: none;
+  cursor: pointer
 }
+
 .layout {
-    display: flex;
-    overflow: hidden;
-    width: 100%;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
 }
+
 .main {
-    display: flex;
-	flex-direction: column;
-    margin-left: #{$left-sidebar-width};
-	min-height: calc(100vh - #{$navbar-height});
-	position: relative;
-    transition: margin-left .3s ease-out;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: #{$left-sidebar-width};
+  min-height: calc(100vh - #{$navbar-height});
+  position: relative;
+  transition: margin-left .3s ease-out;
+  width: 100%;
 }
 
 .icon {
-    color: #bfbdbd;
-    cursor: pointer;
-    text-align: center;
-    width: 18px;
+  color: #bfbdbd;
+  cursor: pointer;
+  text-align: center;
+  width: 18px;
 }
 
 .delete,
 .create,
 .cancel {
-    border-radius: $border-radius;
-    cursor: pointer;
-    margin-right: 5px;
-    outline: none;
-    padding: 6px 12px;
-    transition: all .3s ease-in-out;
+  border-radius: $border-radius;
+  cursor: pointer;
+  margin-right: 5px;
+  outline: none;
+  padding: 6px 12px;
+  transition: all .3s ease-in-out;
 }
 
 .create {
-    background-color: #068E86;
-    color: white;
+  background-color: #068E86;
+  color: white;
 }
 
 .delete {
-    background-color: #FA305A;
-    color: white;
+  background-color: #FA305A;
+  color: white;
 }
 
 .cancel {
-    text-decoration: dotted;
+  text-decoration: dotted;
 }
+
 .cancel:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .editor {
-    border: 1px solid #b6dbd9;
-    border-radius: $border-radius;
-    outline: none;
-    width: 100%;
+  border: 1px solid #b6dbd9;
+  border-radius: $border-radius;
+  outline: none;
+  width: 100%;
 }
 
 .create-list__options {
-    align-items: center;
-    display: flex;
-    padding: 10px 0 0;
-    width: 100%;
+  align-items: center;
+  display: flex;
+  padding: 10px 0 0;
+  width: 100%;
 }
 
 
 // heplers
 .text-danger {
-    color: #bd0026
+  color: #bd0026
 }

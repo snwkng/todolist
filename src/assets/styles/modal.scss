@@ -49,6 +49,17 @@
   
   .modal-body {
     margin: 30px 0;
+
+    &__edit {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: bold;
+        font-family: $font-family;
+        margin-bottom: 5px;
+      }
+    }
   }
   
   .modal-default-button {

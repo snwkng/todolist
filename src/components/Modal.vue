@@ -21,9 +21,14 @@
                   <div v-if="modalType === 'delete'">
                     <span>Вы дейтсвительно хотите удалить <strong class="text-danger">{{modalInfo.group_name}}</strong></span>
                   </div>
-                  <div v-if="modalType === 'edit'">
+                  <div class="modal-body__edit" v-if="modalType === 'edit'">
                     <label for="edit-name">Название </label>
-                    <input id="edit-name" type="text" v-model="modalInfo.group_name">
+                    <input
+                    id="edit-name"
+                    type="text"
+                    ref="editName"
+                    v-model="modalInfo.group_name"
+                    @keyup.enter="saveData">
                   </div>
                 </slot>
               </div>
@@ -63,7 +68,12 @@ export default {
       })
     },
     saveData () {
-
+      store.dispatch('todoGroup/UPDATE_TODO_GROUP', this.modalInfo).then(() => {
+        store.dispatch('modal/SET_SHOW_MODAL', false)
+      })
+    },
+    focusInput () {
+      this.$refs.editName.focus()
     }
   },
   mounted () {
@@ -72,6 +82,7 @@ export default {
         this.$emit('close')
       }
     })
+    this.focusInput()
   }
 }
 </script>
