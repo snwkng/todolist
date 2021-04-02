@@ -1,14 +1,12 @@
 const express = require('express')
 const session = require('express-session')
-
-const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
-const MongoStore = require('connect-mongo')(session)
 const http = require('http')
 const cors = require('cors')
-const { routes } = require('./routes')
 const passport = require('passport')
-const auth = require('./routes/auth')
+
+const { routes } = require('./routes')
 
 // подключение к бд
 mongoose.connect(
@@ -22,22 +20,19 @@ mongoose.connect(
 // инициализируем приложение
 const app = express()
 app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(session({
   secret: 'very secret this is',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  cookie: { secure: true }
 }))
 
-// passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/api/auth', auth)
-app.get('/', (req, res) => res.send('hoooome'))
 routes.forEach(element => {
   app.use(`/api/${element}`, require(`./routes/${element}`))
 })

@@ -1,3 +1,3 @@
 module.exports = {
-  routes: ['todoGroup', 'todo']
+  routes: ['todoGroup', 'todo', 'auth']
 }
