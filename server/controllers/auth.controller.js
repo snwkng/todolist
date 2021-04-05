@@ -1,15 +1,24 @@
 const { User } = require('../model')
 const boom = require('boom')
+const bcrypt = require('bcryptjs')
+const { validationResult } = require('express-validator')
 
 class AuthController {
   async registration (req, res) {
     try {
+      const errorValidations = validationResult(req)
+      if (!errorValidations.isEmpty()) {
+        return res.status(400).json({ message: 'Ошибка при регистрации', errorValidations })
+      }
       const { username, password } = req.body
       const candidate = await User.findOne({ username })
       if (candidate) {
         return res.status(400).json({ message: 'Пользователь с таким именем уже существует' })
       }
-      const user = new User({ username })
+      const hashPassword = bcrypt.hashSync(password, 7)
+      const user = new User({ username, password: hashPassword })
+      await user.save()
+      return res.json({ message: `${user.username} успешно зарегестрирован!` })
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
     }
