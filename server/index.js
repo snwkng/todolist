@@ -21,7 +21,6 @@ mongoose.connect(
 )
 
 routes.forEach(element => {
-  console.log(element)
   app.use(`/api/${element}`, require(`./routes/${element}`))
 })
 // объявим роуты

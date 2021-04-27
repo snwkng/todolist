@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../config')
-const saltRounds = 10
+
 const generateAccessToken = (id) => {
   const payload = {
     id
@@ -24,13 +24,14 @@ class AuthController {
       if (candidate) {
         return res.status(400).json({ message: 'Пользователь с таким именем уже существует' })
       }
-      bcrypt.hash(password, saltRounds, function (err, hash) {
-        if (err) return err
-        const user = new User({ username, password: hash })
-        user.token = generateAccessToken(user._id)
-        user.save()
-        return res.status(200).json({ message: `${user.username} успешно зарегестрирован!` })
-      })
+      const saltRounds = await bcrypt.genSalt()
+      const hashPassword = await bcrypt.hash(password, saltRounds)
+      console.log(saltRounds)
+      console.log(hashPassword)
+      const user = new User({ username, password: hashPassword })
+      user.token = generateAccessToken(user._id)
+      await user.save()
+      return res.status(201).json({ message: `${user.username} успешно зарегестрирован!` })
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
     }
@@ -43,15 +44,13 @@ class AuthController {
       if (!user) {
         return res.status(400).json({ message: `Пользователь с именем ${username} не найден` })
       }
-      bcrypt.compare(password, user.password, function (err, validPassword) {
-        if (err || !validPassword) {
-          console.log('ads')
-          return res.status(400).json({ message: 'Неверный пароль' })
-        }
+      if (await bcrypt.compare(password, user.password)) {
         const token = generateAccessToken(user._id)
-        user.updateOne({ username: username }, { $set: { token: token } })
-        return res.status(200).json({ user })
-      })
+        await user.update({ username: username }, { $set: { token: token } })
+        return res.json({ user })
+      } else {
+        return res.send('not allowed')
+      }
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
     }
