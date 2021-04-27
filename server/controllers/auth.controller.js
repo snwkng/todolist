@@ -1,10 +1,10 @@
 const { User } = require('../model')
 const boom = require('boom')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../config')
-
+const saltRounds = 10
 const generateAccessToken = (id) => {
   const payload = {
     id
@@ -24,10 +24,13 @@ class AuthController {
       if (candidate) {
         return res.status(400).json({ message: 'Пользователь с таким именем уже существует' })
       }
-      const hashPassword = bcrypt.hashSync(password, 7)
-      const user = new User({ username, password: hashPassword })
-      await user.save()
-      return res.json({ message: `${user.username} успешно зарегестрирован!` })
+      bcrypt.hash(password, saltRounds, function (err, hash) {
+        if (err) return err
+        const user = new User({ username, password: hash })
+        user.token = generateAccessToken(user._id)
+        user.save()
+        return res.status(200).json({ message: `${user.username} успешно зарегестрирован!` })
+      })
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
     }
@@ -40,12 +43,15 @@ class AuthController {
       if (!user) {
         return res.status(400).json({ message: `Пользователь с именем ${username} не найден` })
       }
-      const validPassword = bcrypt.compareSync(password, user.password)
-      if (!validPassword) {
-        return res.status(400).json({ message: 'Неверный пароль' })
-      }
-      const token = generateAccessToken(user._id)
-      return res.json({ token })
+      bcrypt.compare(password, user.password, function (err, validPassword) {
+        if (err || !validPassword) {
+          console.log('ads')
+          return res.status(400).json({ message: 'Неверный пароль' })
+        }
+        const token = generateAccessToken(user._id)
+        user.updateOne({ username: username }, { $set: { token: token } })
+        return res.status(200).json({ user })
+      })
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
     }

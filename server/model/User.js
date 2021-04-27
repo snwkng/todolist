@@ -4,11 +4,16 @@ const User = new Schema({
   username: {
     type: String,
     unique: true,
-    required: true
+    required: true,
+    lowercase: true
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    lowercase: true
+  },
+  token: {
+    type: String
   }
 })
 
