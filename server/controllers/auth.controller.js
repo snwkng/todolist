@@ -24,11 +24,9 @@ class AuthController {
       if (candidate) {
         return res.status(400).json({ message: 'Пользователь с таким именем уже существует' })
       }
-      const saltRounds = await bcrypt.genSalt()
-      const hashPassword = await bcrypt.hash(password, saltRounds)
-      console.log(saltRounds)
-      console.log(hashPassword)
-      const user = new User({ username, password: hashPassword })
+      const salt = await bcrypt.genSalt(6)
+      const hash = await bcrypt.hash(password, salt)
+      const user = new User({ username, password: hash })
       user.token = generateAccessToken(user._id)
       await user.save()
       return res.status(201).json({ message: `${user.username} успешно зарегестрирован!` })
@@ -46,10 +44,14 @@ class AuthController {
       }
       if (await bcrypt.compare(password, user.password)) {
         const token = generateAccessToken(user._id)
-        await user.update({ username: username }, { $set: { token: token } })
-        return res.json({ user })
+        await user.updateOne({ username: username }, { $set: { token: token } })
+        return res.json({
+          id: user._id,
+          name: user.username,
+          token: user.token
+        })
       } else {
-        return res.send('not allowed')
+        return res.json('Неверный пароль')
       }
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
