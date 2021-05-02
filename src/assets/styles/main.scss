@@ -71,6 +71,13 @@ button {
   width: 18px;
 }
 
+.label {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
 .delete,
 .create,
 .cancel {
@@ -114,8 +121,11 @@ button {
   width: 100%;
 }
 
-
 // heplers
 .text-danger {
   color: #bd0026
+}
+
+.form-group {
+  margin-bottom: 16px;
 }

@@ -2,14 +2,19 @@
   <div class='auth'>
     <div class='auth-container'>
       <div class='auth-header'>
-        {{headerText}}
+        <h1>{{headerText}}</h1>
       </div>
       <div class='auth-body'>
         <form>
-          <label for='login-email'>Email</label>
-          <input id='login-email' type='email' name='Email'>
-          <label for='login-password'>Password</label>
-          <input id='login-password' type='password' name='Password'>
+          <div class="form-group">
+            <label class="label" for='login-name'>Name</label>
+            <input class="auth-input" id='login-name' type='email' name='Name'>
+          </div>
+          <div class="form-group">
+            <label class="label" for='login-password'>Password</label>
+            <input class="auth-input" id='login-password' type='password' name='Password'>
+          </div>
+          <button class="auth-submit" type="submit">{{submitText}}</button>
         </form>
       </div>
     </div>
@@ -21,7 +26,14 @@ export default {
   name: 'Authentication',
   data () {
     return {
-      headerText: 'Вход'
+    }
+  },
+  computed: {
+    headerText () {
+      return this.$route.name === 'Login' ? 'Вход' : 'Регистрация'
+    },
+    submitText () {
+      return this.$route.name === 'Login' ? 'Войти' : 'Зарегистрироваться'
     }
   },
   mounted () {
