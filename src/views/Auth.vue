@@ -5,14 +5,14 @@
         <h1>{{headerText}}</h1>
       </div>
       <div class='auth-body'>
-        <form>
+        <form @submit.prevent='submit'>
           <div class="form-group">
             <label class="label" for='login-name'>Name</label>
-            <input class="auth-input" id='login-name' type='email' name='Name'>
+            <input class="auth-input" id='login-name' type='text' name='Name' v-model='form.username'>
           </div>
           <div class="form-group">
             <label class="label" for='login-password'>Password</label>
-            <input class="auth-input" id='login-password' type='password' name='Password'>
+            <input class="auth-input" id='login-password' type='password' name='Password' v-model='form.password'>
           </div>
           <button class="auth-submit" type="submit">{{submitText}}</button>
         </form>
@@ -22,10 +22,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Authentication',
   data () {
     return {
+      form: {
+        username: '',
+        password: ''
+      }
     }
   },
   computed: {
@@ -36,8 +41,21 @@ export default {
       return this.$route.name === 'Login' ? 'Войти' : 'Зарегистрироваться'
     }
   },
-  mounted () {
-    console.log(this.$route)
+  methods: {
+    ...mapActions({
+      login: 'auth/GET_LOGIN'
+    }),
+
+    submit () {
+      if (this.$route.name === 'Login') {
+        this.login(this.form).then(() => {
+          this.$router.replace({
+            name: 'TodoList'
+          })
+        })
+      } else {
+      }
+    }
   }
 }
 </script>

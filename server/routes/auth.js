@@ -7,7 +7,8 @@ router.route('/registration').post([
   check('username', 'Имя пользователя не может быть пустым').notEmpty(),
   check('password', 'Пароль должен содержать больше 6 символов').isLength({ min: 6 })
 ], auth.registration) // user.register
-router.route('/logout').get(auth.logout) // user.logout
+router.route('/logout').post(auth.logout) // user.logout
+router.route('/me').get(auth.getUserInfo) // me
 router.route('/users').get(auth.getUsers) // user.logout
 
 module.exports = router

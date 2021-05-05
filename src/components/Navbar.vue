@@ -6,10 +6,15 @@
       </path>
     </svg>
   </button>
+    <div class="navbar-right-menu" @click="logOut">
+      <v-icon class="navbar-right-menu__icon" name="log-out"></v-icon>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Navbar',
   data () {
@@ -18,6 +23,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      logOutUser: 'auth/logOut'
+    }),
+
     toggleSidebar () {
       this.showSidebar = !this.showSidebar
       const sidebar = document.getElementById('sidebar')
@@ -30,6 +39,13 @@ export default {
         sidebar.style.left = '-400px'
         main.style.marginLeft = '0'
       }
+    },
+    logOut () {
+      this.logOutUser().then(() => {
+        this.$router.replace({
+          name: 'Login'
+        })
+      })
     }
   }
 }

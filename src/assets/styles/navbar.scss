@@ -4,6 +4,7 @@
     color: white;
     display: flex;
     height: $navbar-height;
+    justify-content: space-between;
     padding: 0 30px;
     // justify-content: center;
     &__btn {
@@ -25,5 +26,16 @@
     }
     &__btn:focus {
         outline: none;
+    }
+
+    &-right-menu {
+        &__icon {
+            height: 20px;
+            color: white;
+            width: 20px;
+        }
+        &__icon:hover {
+            cursor: pointer;
+        }
     }
 }
