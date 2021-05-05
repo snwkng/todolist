@@ -1,23 +1,15 @@
 <template>
   <div id="app" class="app">
-    <Navbar />
-    <div class="layout">
-      <LeftNavigation />
-      <router-view/>
-    </div>
+    <router-view />
     <modal v-if="showModal" @close="showModal = false" />
   </div>
 </template>
 
 <script>
 import store from '@/store'
-import Navbar from '@/components/Navbar'
-import LeftNavigation from '@/components/LeftNavigation'
 import Modal from './components/Modal.vue'
 export default {
   components: {
-    Navbar,
-    LeftNavigation,
     Modal
   },
   data () {
