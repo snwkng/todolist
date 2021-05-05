@@ -1,6 +1,11 @@
 import axios from 'axios'
 
 export default {
+  async GET_REGISTRATION ({ dispatch }, newUser) {
+    await axios.post('auth/registration', newUser).then(response => {
+      return dispatch('GET_ATTEMPT', response.data.token)
+    })
+  },
   async GET_LOGIN ({ dispatch }, credentials) {
     await axios.post('auth/login', credentials).then(response => {
       return dispatch('GET_ATTEMPT', response.data.token)
@@ -24,7 +29,6 @@ export default {
       commit('SET_USER', null)
     }
   },
-
   logOut ({ commit }) {
     return axios.post('auth/logout').then(() => {
       commit('SET_TOKEN', null)

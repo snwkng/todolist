@@ -129,3 +129,12 @@ button {
 .form-group {
   margin-bottom: 16px;
 }
+
+.separator {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #fff;
+  height: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  position: relative;
+}

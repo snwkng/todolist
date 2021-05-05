@@ -38,7 +38,7 @@ class AuthController {
       })
       user.token = generateAccessToken(user._id)
       await user.save()
-      return res.status(201).json({ message: `${user.username} успешно зарегестрирован!` })
+      return res.status(201).send({ token: user.token })
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
     }
@@ -52,14 +52,14 @@ class AuthController {
       } = req.body
       const user = await User.findOne({ username })
       if (!user) {
-        return res.status(400).json({ message: `Пользователь с именем ${username} не найден` })
+        return res.status(403).json({ message: `Пользователь с именем ${username} не найден` })
       }
       if (await bcrypt.compare(password, user.password)) {
         const token = generateAccessToken(user._id)
         await user.updateOne({ username: username }, { $set: { token: token } })
-        return res.send({ token: user.token })
+        return res.status(200).send({ token: user.token })
       } else {
-        return res.json('Неверный пароль')
+        return res.status(403).json('Неверный пароль')
       }
     } catch (error) {
       return res.status(400).send(boom.boomify(error))

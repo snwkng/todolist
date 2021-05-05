@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   }
-  if (to.name === 'Login' && store.getters['auth/authenticated']) {
+  if ((to.name === 'Login' || to.name === 'Registration') && store.getters['auth/authenticated']) {
     return next('/')
   } else {
     next()
