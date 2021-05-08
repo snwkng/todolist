@@ -51,7 +51,7 @@ export default {
   async UPDATE_TODO ({ dispatch, commit }, todo) {
     try {
       await updateTodo(todo)
-      dispatch('GET_TODOS_BY_GROUP', todo.todo_group)
+      // dispatch('GET_TODOS_BY_GROUP', todo.todo_group)
     } catch (error) {
       commit('SET_TODO_ERROR', error)
     }

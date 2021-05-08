@@ -1,4 +1,7 @@
-const { User } = require('../model')
+const {
+  User,
+  TodoGroup
+} = require('../model')
 const boom = require('boom')
 const bcrypt = require('bcrypt')
 const { validationResult } = require('express-validator')
@@ -10,6 +13,32 @@ const generateAccessToken = (id) => {
     id
   }
   return jwt.sign(payload, secret, { expiresIn: '24h' })
+}
+
+// add default left menu (temporary solution)
+const createLeftSidebarMenu = (userId) => {
+  try {
+    TodoGroup.insertMany([
+      {
+        group_name: 'Несортированное',
+        icon: 'inbox',
+        user_id: userId
+      },
+      {
+        group_name: 'Сегодня',
+        icon: 'calendar',
+        user_id: userId
+      },
+      {
+        group_name: 'Избранное',
+        icon: 'star',
+        user_id: userId
+      }
+    ])
+    console.log('asd')
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 class AuthController {
@@ -36,6 +65,7 @@ class AuthController {
         username,
         password: hash
       })
+      createLeftSidebarMenu(user._id)
       user.token = generateAccessToken(user._id)
       await user.save()
       return res.status(201).send({ token: user.token })

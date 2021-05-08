@@ -2,7 +2,7 @@
   <nav class="sidebar" id="sidebar">
     <ul class="sidebar-list">
       <li
-        v-for="list in mainList" :key="list.group_name"
+        v-for="list in mainList" :key="list._id"
         :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
         @click="selectGroup(list)">
         <v-icon class="icon sidebar-icon" :name="list.icon"></v-icon>

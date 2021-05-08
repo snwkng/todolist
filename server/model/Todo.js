@@ -12,6 +12,10 @@ const schema = new Schema({
   todo_done: {
     type: Boolean,
     default: false
+  },
+  user_id: {
+    type: ObjectId,
+    ref: 'User'
   }
 })
 
