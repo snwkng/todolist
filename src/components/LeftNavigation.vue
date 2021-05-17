@@ -112,11 +112,16 @@ export default {
     }
   },
   created () {
-    this.GET_TODOS_GROUP().then(() => {
+    this.$store.dispatch('todoGroupForUsers/getTodoGroups', this.$store.state.auth.user.id).then(() => {
       store.dispatch('todoGroup/ADD_SELECT_TODO_GROUP', this.allTogosGroup[0]).then(() => {
         this.GET_TODOS_BY_GROUP(this.activeGroup._id)
       })
     })
+    // this.GET_TODOS_GROUP().then(() => {
+    //   store.dispatch('todoGroup/ADD_SELECT_TODO_GROUP', this.allTogosGroup[0]).then(() => {
+    //     this.GET_TODOS_BY_GROUP(this.activeGroup._id)
+    //   })
+    // })
   }
 }
 </script>

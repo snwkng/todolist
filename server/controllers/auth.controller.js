@@ -35,7 +35,6 @@ const createLeftSidebarMenu = (userId) => {
         user_id: userId
       }
     ])
-    console.log('asd')
   } catch (e) {
     console.log(e)
   }
@@ -82,14 +81,14 @@ class AuthController {
       } = req.body
       const user = await User.findOne({ username })
       if (!user) {
-        return res.status(403).json({ message: `Пользователь с именем ${username} не найден` })
+        return res.status(400).json({ message: `Пользователь с именем ${username} не найден` })
       }
       if (await bcrypt.compare(password, user.password)) {
         const token = generateAccessToken(user._id)
         await User.updateOne({ username: username }, { $set: { token: token } }, { upsert: true })
         return res.status(200).send({ token: user.token })
       } else {
-        return res.status(403).json('Неверный пароль')
+        return res.status(400).json('Неверный пароль')
       }
     } catch (error) {
       return res.status(400).send(boom.boomify(error))

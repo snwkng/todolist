@@ -9,6 +9,6 @@ router.route('/registration').post([
 ], auth.registration) // user.register
 router.route('/logout').post(auth.logout) // user.logout
 router.route('/me').get(auth.getUserInfo) // me
-router.route('/users').get(auth.getUsers) // user.logout
+router.route('/users').get(auth.getUsers) // user.getUsers
 
 module.exports = router

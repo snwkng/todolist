@@ -12,5 +12,8 @@ requireModule.keys().forEach(fileName => {
   if (fileName.includes('index.js')) {
     modules[moduleName] = requireModule(fileName).default
   }
+  if (fileName.includes('todoGroupForUsers.js')) {
+    modules[moduleName] = requireModule(fileName).default
+  }
 })
 export default modules
