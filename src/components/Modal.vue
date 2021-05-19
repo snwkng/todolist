@@ -6,11 +6,12 @@
 
           <div class='modal-header'>
             <slot name='header'>
-              <div v-if="modalType === 'delete'">
+              <div class='modal-header__title' v-if="modalType === 'delete'">
+                <h3>Удалить группу</h3>
                 <v-icon name='info' />
               </div>
               <div class='modal-header__title' v-if="modalType === 'edit'">
-                <h3>Редактировать проект</h3>
+                <h3>Редактировать группу</h3>
                 <v-icon name='info' />
               </div>
             </slot>
@@ -63,12 +64,12 @@ export default {
   },
   methods: {
     deleteData () {
-      store.dispatch('todoGroup/DELETE_TODO_GROUP', this.modalInfo).then(() => {
+      store.dispatch('todoGroup/deleteTodoGroup', this.modalInfo).then(() => {
         store.dispatch('modal/SET_SHOW_MODAL', false)
       })
     },
     saveData () {
-      store.dispatch('todoGroup/UPDATE_TODO_GROUP', this.modalInfo).then(() => {
+      store.dispatch('todoGroup/updateTodoGroup', this.modalInfo).then(() => {
         store.dispatch('modal/SET_SHOW_MODAL', false)
       })
     },

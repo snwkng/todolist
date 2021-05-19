@@ -21,7 +21,11 @@ mongoose.connect(
 )
 
 routes.forEach(element => {
-  app.use(`/api/${element}`, require(`./routes/${element}`))
+  if (element === 'todoGroup') {
+    app.use('/api/todo-group', require(`./routes/${element}`))
+  } else {
+    app.use(`/api/${element}`, require(`./routes/${element}`))
+  }
 })
 // объявим роуты
 const PORT = 3000

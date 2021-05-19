@@ -12,7 +12,7 @@ requireModule.keys().forEach(fileName => {
   if (fileName.includes('index.js')) {
     modules[moduleName] = requireModule(fileName).default
   }
-  if (fileName.includes('todoGroupForUsers.js')) {
+  if (fileName.includes('todoGroup.js')) {
     modules[moduleName] = requireModule(fileName).default
   }
 })
