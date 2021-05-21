@@ -5,23 +5,7 @@
    </div>
    <ul class="todo-list">
      <li v-for="todo in todosByGroup" :key="todo._id">
-       <div class="" v-if="editableTodo && editableTodo._id === todo._id">
-        <div class="todo-editor">
-          <textarea
-            autocorrect="on"
-            autofocus
-            type="text"
-            class="editor todo-editor__area"
-            ref="editTodo"
-            v-model="editableTodo.todo_name"
-            @keydown.esc="cancelCreate">
-          </textarea>
-        </div>
-        <div class="create-list__options">
-          <button type="button" class="create" @click="doneTodo(editableTodo)">Сохранить</button>
-          <button type="button" class="cancel" @click="cancelCreate">Отмена</button>
-        </div>
-       </div>
+       <todo-editor  v-if="editableTodo && editableTodo._id === todo._id"></todo-editor>
        <div class="todo-list__item" v-else>
         <input type="checkbox" class="item-checkbox" v-model="todo.todo_done" @change="doneTodo(todo)" />
         <div class="item-content">
@@ -52,20 +36,7 @@
   <div
     class="create-todo-editor"
     v-if="showCreateTodoEditor">
-    <div class="todo-editor">
-      <textarea
-        autocorrect="on"
-        autofocus
-        type="text"
-        class="editor todo-editor__area"
-        v-model="todo"
-        @keydown.esc="cancelCreate">
-      </textarea>
-    </div>
-    <div class="create-list__options">
-      <button type="button" class="create" @click="addTodo">Создать</button>
-      <button type="button" class="cancel" @click="cancelCreate">Отмена</button>
-    </div>
+    <todo-editor @cancelCreate="showCreateTodoEditor = false"></todo-editor>
   </div>
    <div class="create-todo" v-else>
      <svg width="14" height="14" class="sidebar-icon create-todo__icon">
@@ -83,62 +54,67 @@
 <script>
 import store from '@/store'
 import { mapState, mapActions } from 'vuex'
+import TodoEditor from './TodoEditor.vue'
 
 export default {
+  components: { TodoEditor },
   name: 'Todo',
   data () {
     return {
-      editableTodo: null,
       showCreateTodoEditor: false,
-      todo: '',
       done: false
     }
   },
   computed: {
-    ...mapState('todo', ['todosByGroup']),
-    ...mapState('todoGroup', ['activeGroup'])
+    ...mapState('todo', ['todosByGroup', 'todoEditor']),
+    ...mapState('todoGroup', ['activeGroup']),
+    editableTodo: {
+      get () {
+        return store.state.todo.editableTodo
+      },
+      set (editTodoValue) {
+        store.dispatch('todo/updateEditableTodo', editTodoValue)
+      }
+    }
   },
   methods: {
-    ...mapActions('todo', ['GET_TODOS', 'GET_TODOS_BY_GROUP']),
+    ...mapActions('todo', ['getTodos', 'getTodosByGroup']),
     focusInput () {
+      console.log(this.$refs.focusTodoEditor)
       if (this.$refs.editTodo && this.$refs.editTodo.length > 0) {
         this.$refs.editTodo[0].focus()
       }
+      if (this.$refs.addTodo) {
+        this.$refs.addTodo.focus()
+      }
     },
     createTodo () {
+      setTimeout(() => {
+        this.focusInput()
+      })
       this.showCreateTodoEditor = true
     },
-    cancelCreate () {
-      this.showCreateTodoEditor = false
-      this.todo = ''
-      this.editableTodo = null
-    },
-    addTodo () {
-      const todo = {
-        todo_name: this.todo,
-        todo_group: this.activeGroup._id
-      }
-      store.dispatch('todo/CREATE_TODO', todo).then(() => {
-        this.showCreateTodoEditor = false
-        this.todo = ''
-      })
-    },
     deleteTodo (todo) {
-      store.dispatch('todo/DELETE_TODO', todo)
+      store.dispatch('todo/deleteTodo', todo)
     },
     doneTodo (todo) {
-      store.dispatch('todo/UPDATE_TODO', todo).then(() => {
+      store.dispatch('todo/updateTodo', todo).then(() => {
         if (typeof todo === 'object') {
           this.editableTodo = null
         }
       })
     },
     editTodo (todo) {
-      this.editableTodo = Object.assign({}, todo)
+      setTimeout(() => {
+        this.focusInput()
+      })
+      store.dispatch('todo/updateTodoValue', todo.todo_name).then(() => {
+        this.editableTodo = Object.assign({}, todo)
+      })
     }
   },
   created () {
-    this.GET_TODOS()
+    this.getTodos()
   },
   mounted () {
     this.focusInput()

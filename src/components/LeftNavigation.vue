@@ -5,7 +5,7 @@
         v-for="list in mainList" :key="list._id"
         :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
         @click="selectGroup(list)">
-        <v-icon class="icon sidebar-icon" :name="list.icon"></v-icon>
+        <v-icon :class="['icon sidebar-icon', {'star' : list.icon === 'star'}]" :name="list.icon"></v-icon>
         <span>{{ list.group_name }}</span>
       </li>
     </ul>
@@ -45,6 +45,7 @@
         <input
         type="text"
         class="editor create-list__editor"
+        ref="createList"
         v-model="listName"
         @keydown.esc="cancelCreate">
         <div class="create-list__options">
@@ -90,13 +91,16 @@ export default {
     ...mapActions({
       getTodoGroups: 'todoGroup/getTodoGroups'
     }),
-    ...mapActions('todo', ['GET_TODOS_BY_GROUP']),
+    ...mapActions('todo', ['getTodosByGroup']),
     selectGroup (group) {
       store.dispatch('todoGroup/addSelectTodoGroup', group).then(() => {
-        this.GET_TODOS_BY_GROUP(this.activeGroup._id)
+        this.getTodosByGroup(this.activeGroup._id)
       })
     },
     activateEditor () {
+      setTimeout(() => {
+        this.$refs.createList.focus()
+      })
       this.canCreate = true
     },
     cancelCreate () {
@@ -120,7 +124,7 @@ export default {
   created () {
     this.getTodoGroups().then(() => {
       store.dispatch('todoGroup/addSelectTodoGroup', this.allTodoGroups[0]).then(() => {
-        this.GET_TODOS_BY_GROUP(this.activeGroup._id)
+        this.getTodosByGroup(this.activeGroup._id)
       })
     })
   }
