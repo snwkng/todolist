@@ -50,8 +50,9 @@ const actions = {
       commit('SET_TODO_ERROR', error)
     })
   },
-  async updateTodo ({ commit }, todo) {
+  async updateTodo ({ commit, dispatch }, todo) {
     await axios.put(`todo/update/${todo._id}`, todo).then(() => {
+      dispatch('getTodosByGroup', todo.todo_group)
     }).catch(error => {
       commit('SET_TODO_ERROR', error)
     })

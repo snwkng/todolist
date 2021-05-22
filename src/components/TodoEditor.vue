@@ -2,17 +2,15 @@
   <div>
     <div class="todo-editor">
       <textarea
-        autocorrect="on"
         ref="focusTodoEditor"
-        type="text"
         class="editor todo-editor__area"
         v-model="todoEditor"
         @keydown.esc="cancelCreate"
-        @keydown.ctrl.enter="addTodo"
-      ></textarea>
+        @keydown.enter="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
+      </textarea>
     </div>
     <div class="create-list__options">
-      <button type="button" class="create" @click="doneTodo(editableTodo)">
+      <button type="button" class="create" @click="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
         Сохранить
       </button>
       <button type="button" class="cancel" @click="cancelCreate">Отмена</button>
@@ -25,6 +23,14 @@ import { mapState } from 'vuex'
 import store from '@/store'
 export default {
   name: 'TodoEditor',
+  props: {
+    typeEditor: {
+      type: String,
+      default: () => {
+        return ''
+      }
+    }
+  },
   computed: {
     ...mapState('todoGroup', {
       activeGroup: 'activeGroup'
@@ -47,6 +53,9 @@ export default {
     }
   },
   methods: {
+    focusInput () {
+      this.$refs.focusTodoEditor.focus()
+    },
     cancelCreate () {
       this.$emit('cancelCreate')
       this.todoEditor = ''
@@ -59,17 +68,22 @@ export default {
         todo_date: Date.now
       }
       store.dispatch('todo/createTodo', todo).then(() => {
-        this.showCreateTodoEditor = false
+        this.$emit('cancelCreate')
         this.todoEditor = ''
       })
     },
     doneTodo (todo) {
+      todo.todo_name = this.todoEditor
       store.dispatch('todo/updateTodo', todo).then(() => {
+        this.todoEditor = ''
         if (typeof todo === 'object') {
           this.editableTodo = null
         }
       })
     }
+  },
+  mounted () {
+    this.focusInput()
   }
 }
 </script>

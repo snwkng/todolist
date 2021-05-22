@@ -121,7 +121,7 @@ button {
   width: 100%;
 }
 
-// heplers
+// helpers
 .text-danger {
   color: #bd0026
 }
@@ -141,4 +141,8 @@ button {
 
 .star {
   color: orange;
+}
+
+.text-decoration-line-through {
+ text-decoration-line:  line-through;
 }
