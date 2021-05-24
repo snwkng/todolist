@@ -68,7 +68,7 @@ export default {
         todo_date: Date.now
       }
       store.dispatch('todo/createTodo', todo).then(() => {
-        this.$emit('cancelCreate')
+        // this.$emit('cancelCreate')
         this.todoEditor = ''
       })
     },

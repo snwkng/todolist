@@ -1,19 +1,34 @@
 <template>
   <div id="nav" class="navbar">
-  <button class="navbar__btn" @click="toggleSidebar">
-    <svg class="menu_icon" width="24" height="24" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z">
-      </path>
-    </svg>
-  </button>
-    <div class="navbar-right-menu" @click="logOut">
-      <v-icon class="navbar-right-menu__icon" name="log-out"></v-icon>
+    <button class="navbar__btn" @click="toggleSidebar">
+      <svg class="menu_icon" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" fill-rule="evenodd"
+              d="M4.5 5h15a.5.5 0 1 1 0 1h-15a.5.5 0 0 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 6h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1z">
+        </path>
+      </svg>
+    </button>
+    <div class="navbar-right-menu">
+      <div class="user-info">
+        <div class="user-info__name">
+          {{userInfo.name}}
+        </div>
+        <div class="user-info__avatar">
+          <img class="img-responsive" src="../assets/images/avatar.png" alt="avatar">
+          <v-icon class="navbar-right-menu__icon" name="log-out"></v-icon>
+        </div>
+      </div>
+      <div class="logout" @click="logOut" title="logout">
+        <v-icon class="navbar-right-menu__icon" name="log-out"></v-icon>
+      </div>
     </div>
+    <!--    <div class="navbar-right-menu" @click="logOut">-->
+    <!--      <v-icon class="navbar-right-menu__icon" name="log-out"></v-icon>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Navbar',
@@ -22,9 +37,14 @@ export default {
       showSidebar: true
     }
   },
+  computed: {
+    ...mapState('auth', {
+      userInfo: 'user'
+    })
+  },
   methods: {
     ...mapActions({
-      logOutUser: 'auth/logOut'
+      logOutUser: 'auth/user'
     }),
 
     toggleSidebar () {

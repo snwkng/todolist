@@ -1,7 +1,10 @@
 <template>
  <div class="todo">
    <div class="todo-header">
-     <h1>{{activeGroup.group_name}}</h1>
+     <h1>
+       {{activeGroup.group_name}}
+       <span class='todo-header__date' v-if="activeGroup.group_name === 'Сегодня'">{{today | date}}</span>
+     </h1>
    </div>
    <ul class="todo-list">
      <li v-for="todo in todosByGroup" :key="todo._id">
@@ -25,9 +28,9 @@
           <div class="item-options__option" title="delete" @click="deleteTodo(todo)">
             <v-icon class="icon" name="trash-2"></v-icon>
           </div>
-          <div class="item-options__option" title="other settings">
-            <v-icon class="icon" name="more-horizontal"></v-icon>
-          </div>
+<!--          <div class="item-options__option" title="other settings">-->
+<!--            <v-icon class="icon" name="more-horizontal"></v-icon>-->
+<!--          </div>-->
         </div>
        </div>
      </li>
@@ -69,6 +72,9 @@ export default {
   computed: {
     ...mapState('todo', ['todosByGroup', 'todoEditor']),
     ...mapState('todoGroup', ['activeGroup']),
+    today () {
+      return Date.now()
+    },
     editableTodo: {
       get () {
         return store.state.todo.editableTodo

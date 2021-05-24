@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-list__custom-icon" @click.stop="showMenu = !showMenu">
+  <div class="sidebar-list__custom-icon" v-on-clickaway="clickAway" @click.stop="showMenu = !showMenu">
     <v-icon class="icon sidebar-icon__custom" name="more-horizontal"></v-icon>
     <div class="help-menu" v-if="showMenu">
       <ul class="help-menu__list">
@@ -19,10 +19,12 @@
 
 <script>
 
+import { mixin as clickaway } from 'vue-clickaway'
 import store from '@/store'
 
 export default {
   name: 'HelpMenu',
+  mixins: [clickaway],
   props: {
     info: {
       type: Object,
@@ -36,6 +38,9 @@ export default {
     }
   },
   methods: {
+    clickAway () {
+      this.showMenu = false
+    },
     callEditModal () {
       this.modalInfo = Object.assign({}, this.info)
       store.dispatch('modal/SET_SHOW_MODAL', { showModal: true, modalType: 'edit' }).then(() => {

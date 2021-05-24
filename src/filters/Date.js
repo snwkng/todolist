@@ -2,7 +2,7 @@ import moment from 'moment'
 
 export const dateTime = (dateTime) => {
   if (!dateTime) return 'unknown date'
-  return moment(dateTime).format('MMMM D, YYYY - HH:mm:ss')
+  return moment(dateTime).locale('ru').format('LLL')
 }
 
 export const time = (time) => {

@@ -29,6 +29,10 @@
     }
 
     &-right-menu {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        height: 100%;
         &__icon {
             height: 20px;
             color: white;
@@ -36,6 +40,9 @@
         }
         &__icon:hover {
             cursor: pointer;
+        }
+        .logout {
+            margin-left: 15px;
         }
     }
 }

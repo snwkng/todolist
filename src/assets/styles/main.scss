@@ -6,6 +6,9 @@ $border-radius: .25rem;
 $padding: 15px;
 $left-sidebar-width: 300px;
 
+// colors
+$grey: #818AA3;
+
 *,
 :after,
 :before {
@@ -121,7 +124,29 @@ button {
   width: 100%;
 }
 
+.user-info {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  min-width: 80px;
+  width: auto;
+
+  &__avatar {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: flex-end;
+    padding: 5px;
+    width: 45px;
+  }
+}
+
 // helpers
+.img-responsive {
+  height: auto;
+  width: 100%;
+}
 .text-danger {
   color: #bd0026
 }
