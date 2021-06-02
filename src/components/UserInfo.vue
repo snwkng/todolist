@@ -1,23 +1,47 @@
 <template>
-  <div class='position-relative' @click='showMenu = !showMenu'>
-    <div class='user-info'>
-      <div class='user-info__name'>
+  <div class="position-relative">
+    <div class="user-info" @click="showMenu = !showMenu">
+      <div class="user-info__name">
         {{ userInfo.name }}
       </div>
-      <div class='user-info__avatar'>
-        <img class='img-responsive' src='../assets/images/avatar.png' alt='avatar'>
+      <div class="user-info__avatar">
+        <img
+          class="user-avatar"
+          src="../assets/images/avatar.png"
+          alt="avatar"
+        />
       </div>
-      <v-icon class='user-info__icon' name='chevron-down'></v-icon>
+      <v-icon class="user-info__icon" name="chevron-down"></v-icon>
     </div>
-    <div class='test' v-on-clickaway="clickAway" v-if='showMenu'>
-
+    <div class="top-menu" v-on-clickaway="clickAway" v-if="showMenu">
+      <a class="top-menu-user-section">
+        <img
+          class="user-avatar"
+          src="../assets/images/avatar.png"
+          alt="avatar"
+        />
+        <div class="top-menu-user-section__info">
+          <span>{{ userInfo.name }}</span>
+          <span>test@test.test</span>
+        </div>
+      </a>
+      <hr />
+      <div class="top-menu-options-section">
+        <button class="logout" @click="logOut" title="logout">
+          <v-icon class="logout__icon" name="log-out"></v-icon>
+          <span class="logout__text">Выйти</span>
+        </button>
+      </div>
+      <hr />
+        <input type="file" ref="avatar" name="avatar" @change="uploadFiles"/>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import { mixin as clickaway } from 'vue-clickaway'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'UserInfo',
@@ -33,21 +57,33 @@ export default {
     })
   },
   methods: {
-    // bug
+    ...mapActions({
+      logOutUser: 'auth/logOut'
+    }),
     clickAway () {
       this.showMenu = false
+    },
+    logOut () {
+      this.logOutUser().then(() => {
+        this.$router.replace({
+          name: 'Login'
+        })
+      })
+    },
+
+    uploadFiles () {
+      const formData = new FormData()
+      formData.append('avatar', this.$refs.avatar.files[0])
+      // formData.append('_id', this.userInfo.id)
+      console.log(this.$refs.avatar.files[0])
+      axios.put('auth/user/update', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }).then(function () {
+        console.log('SUCCESS!!')
+      }).catch(function () {
+        console.log('FAILURE!!')
+      })
     }
   }
 }
 </script>
-<style>
-.test {
-  background: white;
-  min-width: 300px;
-  height: 200px;
-  position: absolute;
-  z-index: 2000;
-  border: 1px solid black;
-  right: 0
-}
-</style>

@@ -136,6 +136,21 @@ class AuthController {
       return res.status(400).send(boom.boomify(e))
     }
   }
+
+  async updateUser (req, res) {
+    console.log(req.file)
+    console.log(req.body)
+    try {
+      if (req.file) {
+        await User.updateOne({ _id: req._id }, { $set: { avatar: req.file.path } })
+        res.status(201).send('update success!')
+      } else {
+        res.status(400).send('ooPs')
+      }
+    } catch (e) {
+      return res.status(400).send(boom.boomify(e))
+    }
+  }
 }
 
 module.exports = new AuthController()

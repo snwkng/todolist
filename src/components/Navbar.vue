@@ -9,15 +9,11 @@
     </button>
     <div class='navbar-right-menu'>
       <user-info></user-info>
-      <div class='logout' @click='logOut' title='logout'>
-        <v-icon class='navbar-right-menu__icon' name='log-out'></v-icon>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import UserInfo from './UserInfo'
 
 export default {
@@ -29,10 +25,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      logOutUser: 'auth/user'
-    }),
-
     toggleSidebar () {
       this.showSidebar = !this.showSidebar
       const sidebar = document.getElementById('sidebar')
@@ -45,13 +37,6 @@ export default {
         sidebar.style.left = '-400px'
         main.style.marginLeft = '0'
       }
-    },
-    logOut () {
-      this.logOutUser().then(() => {
-        this.$router.replace({
-          name: 'Login'
-        })
-      })
     }
   }
 }

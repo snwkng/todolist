@@ -1,6 +1,7 @@
 const router = require('express-promise-router')()
 const { check } = require('express-validator')
 const { auth } = require('../controllers')
+const fileUploader = require('../fileUploader')
 
 router.route('/login').post(auth.login) // user.login
 router.route('/registration').post([
@@ -10,5 +11,6 @@ router.route('/registration').post([
 router.route('/logout').post(auth.logout) // user.logout
 router.route('/me').get(auth.getUserInfo) // me
 router.route('/users').get(auth.getUsers) // user.getUsers
+router.route('/user/update', fileUploader.single('avatar')).put(auth.updateUser)
 
 module.exports = router
