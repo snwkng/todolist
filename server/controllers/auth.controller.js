@@ -86,7 +86,7 @@ class AuthController {
       if (await bcrypt.compare(password, user.password)) {
         const token = generateAccessToken(user._id)
         await User.updateOne({ username: username }, { $set: { token: token } }, { upsert: true })
-        return res.status(200).send({ token: user.token })
+        return res.status(200).send({ token: token })
       } else {
         return res.status(400).json('Неверный пароль')
       }
