@@ -138,14 +138,12 @@ class AuthController {
   }
 
   async updateUser (req, res) {
-    console.log(req.file)
-    console.log(req.body)
     try {
       if (req.file) {
-        await User.updateOne({ _id: req._id }, { $set: { avatar: req.file.path } })
+        await User.updateOne({ _id: req.body._id }, { $set: { avatar: req.file.path } })
         res.status(201).send('update success!')
       } else {
-        res.status(400).send('ooPs')
+        res.status(400).send(boom.boomify('error'))
       }
     } catch (e) {
       return res.status(400).send(boom.boomify(e))

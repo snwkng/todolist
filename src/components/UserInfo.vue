@@ -74,7 +74,7 @@ export default {
     uploadFiles () {
       const formData = new FormData()
       formData.append('avatar', this.$refs.avatar.files[0])
-      // formData.append('_id', this.userInfo.id)
+      formData.append('_id', this.userInfo.id)
       console.log(this.$refs.avatar.files[0])
       axios.put('auth/user/update', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }

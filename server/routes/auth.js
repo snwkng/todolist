@@ -11,6 +11,6 @@ router.route('/registration').post([
 router.route('/logout').post(auth.logout) // user.logout
 router.route('/me').get(auth.getUserInfo) // me
 router.route('/users').get(auth.getUsers) // user.getUsers
-router.route('/user/update', fileUploader.single('avatar')).put(auth.updateUser)
+router.route('/user/update').put(fileUploader.single('avatar'), auth.updateUser)
 
 module.exports = router
