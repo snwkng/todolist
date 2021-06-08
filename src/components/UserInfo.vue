@@ -14,7 +14,7 @@
       <v-icon class="user-info__icon" name="chevron-down"></v-icon>
     </div>
     <div class="top-menu" v-on-clickaway="clickAway" v-if="showMenu">
-      <a class="top-menu-user-section">
+      <router-link to="/user/account" class="top-menu-user-section">
         <div class="top-menu-user-section__user">
           <img
             class="user-avatar"
@@ -30,7 +30,7 @@
           <v-icon class="logout__icon" name="settings"></v-icon>
           <span class="logout__text">Настройки</span>
         </div>
-      </a>
+      </router-link>
       <hr />
       <div class="top-menu-options-section">
         <button class="logout" @click="logOut" title="logout">

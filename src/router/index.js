@@ -24,6 +24,11 @@ const routes = [
       requiresAuth: true
     },
     component: () => import('../views/Home')
+  },
+  {
+    path: '/user/account',
+    name: 'Account',
+    component: () => import('../views/Account')
   }
 ]
 
