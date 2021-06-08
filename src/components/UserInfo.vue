@@ -7,7 +7,7 @@
       <div class="user-info__avatar">
         <img
           class="user-avatar"
-          src="../assets/images/avatar.png"
+          :src="require(`../assets/images/avatars/${userInfo.avatar}`)"
           alt="avatar"
         />
       </div>
@@ -15,14 +15,20 @@
     </div>
     <div class="top-menu" v-on-clickaway="clickAway" v-if="showMenu">
       <a class="top-menu-user-section">
-        <img
-          class="user-avatar"
-          src="../assets/images/avatar.png"
-          alt="avatar"
-        />
-        <div class="top-menu-user-section__info">
-          <span>{{ userInfo.name }}</span>
-          <span>test@test.test</span>
+        <div class="top-menu-user-section__user">
+          <img
+            class="user-avatar"
+            :src="require(`../assets/images/avatars/${userInfo.avatar}`)"
+            alt="avatar"
+          />
+          <div class="top-menu-user-section__info">
+            <span>{{ userInfo.name }}</span>
+            <span>test@test.test</span>
+          </div>
+        </div>
+        <div class="top-menu-user-section__settings">
+          <v-icon class="logout__icon" name="settings"></v-icon>
+          <span class="logout__text">Настройки</span>
         </div>
       </a>
       <hr />
@@ -75,7 +81,6 @@ export default {
       const formData = new FormData()
       formData.append('avatar', this.$refs.avatar.files[0])
       formData.append('_id', this.userInfo.id)
-      console.log(this.$refs.avatar.files[0])
       axios.put('auth/user/update', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       }).then(function () {

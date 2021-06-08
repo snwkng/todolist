@@ -62,7 +62,8 @@ class AuthController {
       const hash = await bcrypt.hash(password, salt)
       const user = new User({
         username,
-        password: hash
+        password: hash,
+        avatar: ''
       })
       createLeftSidebarMenu(user._id)
       user.token = generateAccessToken(user._id)
@@ -121,7 +122,8 @@ class AuthController {
 
         res.status(200).send({
           id: user._id,
-          name: user.username
+          name: user.username,
+          avatar: user.avatar
         })
       })
     })
@@ -140,7 +142,7 @@ class AuthController {
   async updateUser (req, res) {
     try {
       if (req.file) {
-        await User.updateOne({ _id: req.body._id }, { $set: { avatar: req.file.path } })
+        await User.updateOne({ _id: req.body._id }, { $set: { avatar: req.file.filename } })
         res.status(201).send('update success!')
       } else {
         res.status(400).send(boom.boomify('error'))

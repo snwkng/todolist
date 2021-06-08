@@ -37,7 +37,7 @@
   max-width: 320px;
   padding: 10px 0;
   position: absolute;
-  transform: translate(-143px, 2px);
+  transform: translate(-152px, 2px);
   z-index: 20;
   hr {
     background: #e0e0e0;
@@ -48,12 +48,26 @@
   }
   &-user-section {
     align-items: flex-start;
+    cursor: pointer;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
+    margin-bottom: 10px;
     padding: 0 10px;
+
+    &:hover {
+      background-color: #e8e8e8;
+    }
+
+    &__user {
+      align-items: center;
+      display: flex;
+      justify-content: flex-start;
+    }
     
     .user-avatar {
       margin-right: 10px;
+      margin-left: -5px;
     }
 
     &__info {
@@ -63,6 +77,13 @@
       span:last-child {
         color: $grey;
       }
+    }
+
+    &__settings {
+      align-items: center;
+      color: black;
+      display: flex;
+      padding: 10px 0;
     }
   }
 
