@@ -40,6 +40,10 @@
             color: #acabab;
         }
 
+        &__item:hover .star {
+            color: orange !important;
+        }
+        
         &__create {
             align-items: center;
             background: transparent;

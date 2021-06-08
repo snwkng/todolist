@@ -12,6 +12,14 @@ const schema = new Schema({
   todo_done: {
     type: Boolean,
     default: false
+  },
+  todo_date: {
+    type: Date,
+    default: Date.now
+  },
+  user_id: {
+    type: ObjectId,
+    ref: 'User'
   }
 })
 

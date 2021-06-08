@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 
-
 @import './main.scss';
+@import './color.scss';
+@import './shadows.scss';
 @import './auth.scss';
 @import './navbar.scss';
 @import './sidebar.scss';
 @import './todo.scss';
 @import './modal.scss';
 @import './help-menu.scss';
+@import './user-info.scss';

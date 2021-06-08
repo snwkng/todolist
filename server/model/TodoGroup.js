@@ -14,7 +14,11 @@ const schema = new Schema({
       type: ObjectId,
       ref: 'Todo'
     }
-  ]
+  ],
+  user_id: {
+    type: ObjectId,
+    ref: 'User'
+  }
 })
 
 module.exports = model('TodoGroup', schema)

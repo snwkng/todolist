@@ -29,13 +29,9 @@
     }
 
     &-right-menu {
-        &__icon {
-            height: 20px;
-            color: white;
-            width: 20px;
-        }
-        &__icon:hover {
-            cursor: pointer;
-        }
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        height: 100%;
     }
 }

@@ -8,4 +8,6 @@ router.route('/').get(todoGroup.getAll)
 router.route('/update/list/:id').put(todoGroup.update)
 router.route('/delete/list/:id').delete(todoGroup.delete)
 
+router.route('/all/:userId').get(todoGroup.getTodoGroupByUser)
+
 module.exports = router

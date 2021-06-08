@@ -1,4 +1,7 @@
-const { User } = require('../model')
+const {
+  User,
+  TodoGroup
+} = require('../model')
 const boom = require('boom')
 const bcrypt = require('bcrypt')
 const { validationResult } = require('express-validator')
@@ -10,6 +13,31 @@ const generateAccessToken = (id) => {
     id
   }
   return jwt.sign(payload, secret, { expiresIn: '24h' })
+}
+
+// add default left menu (temporary solution)
+const createLeftSidebarMenu = (userId) => {
+  try {
+    TodoGroup.insertMany([
+      {
+        group_name: 'Несортированное',
+        icon: 'inbox',
+        user_id: userId
+      },
+      {
+        group_name: 'Сегодня',
+        icon: 'calendar',
+        user_id: userId
+      },
+      {
+        group_name: 'Избранное',
+        icon: 'star',
+        user_id: userId
+      }
+    ])
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 class AuthController {
@@ -34,8 +62,10 @@ class AuthController {
       const hash = await bcrypt.hash(password, salt)
       const user = new User({
         username,
-        password: hash
+        password: hash,
+        avatar: ''
       })
+      createLeftSidebarMenu(user._id)
       user.token = generateAccessToken(user._id)
       await user.save()
       return res.status(201).send({ token: user.token })
@@ -52,14 +82,14 @@ class AuthController {
       } = req.body
       const user = await User.findOne({ username })
       if (!user) {
-        return res.status(403).json({ message: `Пользователь с именем ${username} не найден` })
+        return res.status(400).json({ message: `Пользователь с именем ${username} не найден` })
       }
       if (await bcrypt.compare(password, user.password)) {
         const token = generateAccessToken(user._id)
-        await user.updateOne({ username: username }, { $set: { token: token } })
-        return res.status(200).send({ token: user.token })
+        await User.updateOne({ username: username }, { $set: { token: token } }, { upsert: true })
+        return res.status(200).send({ token: token })
       } else {
-        return res.status(403).json('Неверный пароль')
+        return res.status(400).json('Неверный пароль')
       }
     } catch (error) {
       return res.status(400).send(boom.boomify(error))
@@ -92,7 +122,8 @@ class AuthController {
 
         res.status(200).send({
           id: user._id,
-          name: user.username
+          name: user.username,
+          avatar: user.avatar
         })
       })
     })
@@ -103,6 +134,19 @@ class AuthController {
       const users = await User.find()
       res.json(users)
       res.json('server work!')
+    } catch (e) {
+      return res.status(400).send(boom.boomify(e))
+    }
+  }
+
+  async updateUser (req, res) {
+    try {
+      if (req.file) {
+        await User.updateOne({ _id: req.body._id }, { $set: { avatar: req.file.filename } })
+        res.status(201).send('update success!')
+      } else {
+        res.status(400).send(boom.boomify('error'))
+      }
     } catch (e) {
       return res.status(400).send(boom.boomify(e))
     }

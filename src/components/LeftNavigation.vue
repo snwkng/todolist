@@ -2,10 +2,10 @@
   <nav class="sidebar" id="sidebar">
     <ul class="sidebar-list">
       <li
-        v-for="list in mainList" :key="list.group_name"
+        v-for="list in mainList" :key="list._id"
         :class="['sidebar-list__item', {'active': activeGroup._id === list._id}]"
         @click="selectGroup(list)">
-        <v-icon class="icon sidebar-icon" :name="list.icon"></v-icon>
+        <v-icon :class="['icon sidebar-icon', {'star' : list.icon === 'star'}]" :name="list.icon"></v-icon>
         <span>{{ list.group_name }}</span>
       </li>
     </ul>
@@ -45,6 +45,7 @@
         <input
         type="text"
         class="editor create-list__editor"
+        ref="createList"
         v-model="listName"
         @keydown.esc="cancelCreate">
         <div class="create-list__options">
@@ -75,23 +76,31 @@ export default {
     }
   },
   computed: {
-    ...mapState('todoGroup', ['allTogosGroup', 'activeGroup']),
+    ...mapState('todoGroup', {
+      allTodoGroups: 'allTogoGroups',
+      activeGroup: 'activeGroup'
+    }),
     mainList () {
-      return this.allTogosGroup.filter(item => item.icon !== '')
+      return this.allTodoGroups.filter(item => item.icon !== '')
     },
     userList () {
-      return this.allTogosGroup.filter(item => item.icon === '')
+      return this.allTodoGroups.filter(item => item.icon === '')
     }
   },
   methods: {
-    ...mapActions('todoGroup', ['GET_TODOS_GROUP']),
-    ...mapActions('todo', ['GET_TODOS_BY_GROUP']),
+    ...mapActions({
+      getTodoGroups: 'todoGroup/getTodoGroups'
+    }),
+    ...mapActions('todo', ['getTodosByGroup']),
     selectGroup (group) {
-      store.dispatch('todoGroup/ADD_SELECT_TODO_GROUP', group).then(() => {
-        this.GET_TODOS_BY_GROUP(this.activeGroup._id)
+      store.dispatch('todoGroup/addSelectTodoGroup', group).then(() => {
+        this.getTodosByGroup(this.activeGroup._id)
       })
     },
     activateEditor () {
+      setTimeout(() => {
+        this.$refs.createList.focus()
+      })
       this.canCreate = true
     },
     cancelCreate () {
@@ -100,9 +109,10 @@ export default {
     },
     createList () {
       const newList = {
+        user_id: this.$store.state.auth.user.id,
         group_name: this.listName
       }
-      store.dispatch('todoGroup/ADD_TODO_GROUP', newList).then(() => {
+      store.dispatch('todoGroup/addTodoGroup', newList).then(() => {
         this.listName = 'Список без названия'
         this.canCreate = false
       })
@@ -112,9 +122,9 @@ export default {
     }
   },
   created () {
-    this.GET_TODOS_GROUP().then(() => {
-      store.dispatch('todoGroup/ADD_SELECT_TODO_GROUP', this.allTogosGroup[0]).then(() => {
-        this.GET_TODOS_BY_GROUP(this.activeGroup._id)
+    this.getTodoGroups().then(() => {
+      store.dispatch('todoGroup/addSelectTodoGroup', this.allTodoGroups[0]).then(() => {
+        this.getTodosByGroup(this.activeGroup._id)
       })
     })
   }

@@ -6,6 +6,9 @@ $border-radius: .25rem;
 $padding: 15px;
 $left-sidebar-width: 300px;
 
+// colors
+$grey: #818AA3;
+
 *,
 :after,
 :before {
@@ -20,7 +23,7 @@ html {
 }
 
 body {
-  margin: 0px;
+  margin: 0;
 }
 
 input {
@@ -64,11 +67,34 @@ button {
   width: 100%;
 }
 
+.user-avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.logout {
+  align-items: center;
+  color: black;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 5px 10px;
+
+  &:hover {
+    background-color: #e8e8e8;
+  }
+  &__icon {
+    color: black !important;
+    margin-right: 10px;
+  }
+}
+
 .icon {
   color: #bfbdbd;
   cursor: pointer;
+  height: 24px;
   text-align: center;
-  width: 18px;
+  width: 24px;
 }
 
 .label {
@@ -121,7 +147,11 @@ button {
   width: 100%;
 }
 
-// heplers
+// helpers
+.img-responsive {
+  height: auto;
+  width: 100%;
+}
 .text-danger {
   color: #bd0026
 }
@@ -136,5 +166,17 @@ button {
   height: 0;
   margin-top: 30px;
   margin-bottom: 30px;
+  position: relative;
+}
+
+.star {
+  color: orange;
+}
+
+.text-decoration-line-through {
+ text-decoration-line:  line-through;
+}
+
+.position-relative {
   position: relative;
 }
