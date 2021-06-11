@@ -9,7 +9,11 @@ const state = () => ({
 })
 
 // getters
-const getters = {}
+const getters = {
+  favorite: state => {
+    return state.allTogoGroups.filter(item => item.group_name === 'Избранное')[0]
+  }
+}
 
 // actions
 const actions = {

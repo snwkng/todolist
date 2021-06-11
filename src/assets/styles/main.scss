@@ -170,7 +170,11 @@ button {
 }
 
 .star {
-  color: orange;
+  color: orange !important;
+}
+
+.active-star {
+  fill: orange !important;
 }
 
 .text-decoration-line-through {

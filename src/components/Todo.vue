@@ -22,10 +22,13 @@
           </div>
         </div>
         <div class="item-options">
-          <div class="item-options__option" title="edit" @click="editTodo(todo)">
+          <div class="item-options__option" :title="todo.in_favorites ? 'Убрать из избранного' : 'Добавить в избранное'" @click="addOrRemoveFavorites(todo)" v-if="activeGroup.group_name !== 'Избранное'">
+            <v-icon :class="['icon star', {'active-star': todo.in_favorites}]" name="star"></v-icon>
+          </div>
+          <div class="item-options__option" title="Редактировать" @click="editTodo(todo)">
             <v-icon class="icon" name="edit-3"></v-icon>
           </div>
-          <div class="item-options__option" title="delete" @click="deleteTodo(todo)">
+          <div class="item-options__option" title="Удалить" @click="deleteTodo(todo)">
             <v-icon class="icon" name="trash-2"></v-icon>
           </div>
 <!--          <div class="item-options__option" title="other settings">-->
@@ -56,7 +59,7 @@
 
 <script>
 import store from '@/store'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import TodoEditor from './TodoEditor.vue'
 
 export default {
@@ -72,6 +75,9 @@ export default {
   computed: {
     ...mapState('todo', ['todosByGroup', 'todoEditor']),
     ...mapState('todoGroup', ['activeGroup']),
+    ...mapGetters({
+      favorite: 'todoGroup/favorite'
+    }),
     today () {
       return Date.now()
     },
@@ -103,6 +109,17 @@ export default {
       store.dispatch('todo/updateTodoValue', todo.todo_name).then(() => {
         this.editableTodo = Object.assign({}, todo)
       })
+    },
+    addOrRemoveFavorites (todo) {
+      if (todo.in_favorites) {
+        const index = todo.todo_group.indexOf(this.favorite._id)
+        todo.todo_group.splice(index, 1)
+        todo.in_favorites = false
+      } else {
+        todo.todo_group.push(this.favorite._id)
+        todo.in_favorites = true
+      }
+      store.dispatch('todo/updateTodo', todo)
     }
   },
   created () {

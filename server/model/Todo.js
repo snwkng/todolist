@@ -1,14 +1,20 @@
-const { model, Schema, Schema: { Types: { ObjectId } } } = require('mongoose')
+const {
+  model,
+  Schema,
+  Schema: { Types: { ObjectId } }
+} = require('mongoose')
 
 const schema = new Schema({
   todo_name: {
     type: String,
     default: ''
   },
-  todo_group: {
-    type: ObjectId,
-    ref: 'TodoGroup'
-  },
+  todo_group: [
+    {
+      type: ObjectId,
+      ref: 'TodoGroup'
+    }
+  ],
   todo_done: {
     type: Boolean,
     default: false
@@ -20,6 +26,10 @@ const schema = new Schema({
   user_id: {
     type: ObjectId,
     ref: 'User'
+  },
+  in_favorites: {
+    type: Boolean,
+    default: false
   }
 })
 
