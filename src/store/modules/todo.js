@@ -36,16 +36,16 @@ const actions = {
       commit('SET_TODO_ERROR', error)
     })
   },
-  async createTodo ({ dispatch, commit }, todo) {
+  async createTodo ({ rootState, commit, dispatch }, todo) {
     await axios.post('todo/create', todo).then(() => {
-      dispatch('getTodosByGroup', todo.todo_group)
+      dispatch('getTodosByGroup', rootState.todoGroup.activeGroup._id)
     }).catch(error => {
       commit('SET_TODO_ERROR', error)
     })
   },
-  async deleteTodo ({ dispatch, commit }, todo) {
+  async deleteTodo ({ rootState, commit, dispatch }, todo) {
     await axios.delete(`todo/delete/${todo._id}`).then(() => {
-      dispatch('getTodosByGroup', todo.todo_group)
+      dispatch('getTodosByGroup', rootState.todoGroup.activeGroup._id)
     }).catch(error => {
       commit('SET_TODO_ERROR', error)
     })

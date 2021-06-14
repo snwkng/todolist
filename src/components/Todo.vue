@@ -28,7 +28,7 @@
           <div class="item-options__option" title="Редактировать" @click="editTodo(todo)">
             <v-icon class="icon" name="edit-3"></v-icon>
           </div>
-          <div class="item-options__option" title="Удалить" @click="deleteTodo(todo)">
+          <div class="item-options__option" title="Удалить" @click="todo.in_favorites && activeGroup.group_name === 'Избранное' ? removeFromFavoritesModalShow(todo) : deleteTodo(todo)">
             <v-icon class="icon" name="trash-2"></v-icon>
           </div>
 <!--          <div class="item-options__option" title="other settings">-->
@@ -120,6 +120,14 @@ export default {
         todo.in_favorites = true
       }
       store.dispatch('todo/updateTodo', todo)
+    },
+    removeFromFavoritesModalShow (todo) {
+      store.dispatch('modal/SET_SHOW_MODAL', {
+        showModal: true,
+        modalType: 'delete todo'
+      }).then(() => {
+        store.dispatch('modal/SET_MODAL_INFO', todo)
+      })
     }
   },
   created () {

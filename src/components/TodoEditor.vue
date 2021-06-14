@@ -8,6 +8,9 @@
         @keydown.esc="cancelCreate"
         @keydown.enter="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
       </textarea>
+      <div class='todo-editor__helpers'>
+        <div title='добавить дату'><v-icon class="icon" name="clock"></v-icon></div>
+      </div>
     </div>
     <div class="create-list__options">
       <button type="button" class="create" @click="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
