@@ -9,8 +9,17 @@
         @keydown.enter="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
       </textarea>
       <div class='todo-editor__helpers'>
-        <div title='добавить дату'><v-icon class="icon" name="clock"></v-icon></div>
+        <div class="todo-editor__helpers-item" @click="datePicker = true">
+          <v-icon class="icon" name="clock"></v-icon>
+          <span class="todo-editor__helpers-item-text"> Срок</span>
+        </div>
+        <div class="todo-editor__helpers-item">
+          <v-icon class="icon" name="inbox"></v-icon>
+          <span class="todo-editor__helpers-item-text"> {{ allTodoGroups[0].group_name }}</span>
+        </div>
       </div>
+
+      <todo-editor-date-picker v-if="datePicker" @closeDatePicker="datePicker = false" />
     </div>
     <div class="create-list__options">
       <button type="button" class="create" @click="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
@@ -24,8 +33,12 @@
 <script>
 import { mapState } from 'vuex'
 import store from '@/store'
+import TodoEditorDatePicker from './TodoEditorDatePicker'
 export default {
   name: 'TodoEditor',
+  components: {
+    TodoEditorDatePicker
+  },
   props: {
     typeEditor: {
       type: String,
@@ -34,9 +47,15 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      datePicker: false
+    }
+  },
   computed: {
     ...mapState('todoGroup', {
-      activeGroup: 'activeGroup'
+      activeGroup: 'activeGroup',
+      allTodoGroups: 'allTodoGroups'
     }),
     todoEditor: {
       get () {
@@ -52,6 +71,13 @@ export default {
       },
       set (editTodoValue) {
         store.dispatch('todo/updateEditableTodo', editTodoValue)
+      }
+    }
+  },
+  watch: {
+    'activeGroup.group_name' (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.cancelCreate()
       }
     }
   },

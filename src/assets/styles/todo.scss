@@ -125,17 +125,40 @@
 	&__area {
 		font-family: $font-family;
 		min-width: 100%;
-		padding: 10px 10px 40px 10px;
+		padding: 10px 10px 30px 10px;
 		resize: none;
 	}
 
 	&__helpers {
 		align-items: center;
 		bottom: 0;
+		color: gray;
 		display: flex;
 		height: 40px;
 		padding: 0 10px 5px 10px;
 		position: absolute;
 		width: 100%;
+
+		&-item {
+			align-items: center;
+			border: 1px solid #9b9b9b;
+			border-radius: $border-radius;
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+			margin-right: 5px;
+			padding: 3px 5px;
+
+			.icon {
+				color: gray;
+				height: 19px;
+				width: 19px;
+			}
+
+			&-text {
+				font-size: 1rem;
+				margin-left: 3px;
+			}
+		}
 	}
 }
