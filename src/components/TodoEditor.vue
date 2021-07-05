@@ -19,7 +19,9 @@
         </div>
       </div>
 
-      <todo-editor-date-picker v-if="datePicker" @closeDatePicker="datePicker = false" />
+      <transition name="date-picker-animation">
+        <todo-editor-date-picker v-if="datePicker" @closeDatePicker="datePicker = false" />
+      </transition>
     </div>
     <div class="create-list__options">
       <button type="button" class="create" @click="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">

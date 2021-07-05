@@ -161,4 +161,14 @@
 			}
 		}
 	}
+
+
+	// aditor animations
+	.date-picker-animation-enter-active, .date-picker-animation-enter-leave-active {
+		transform: scaleY(1);
+		transition: scaleY .3s ease;
+	}
+	.date-picker-animation-enter, .date-picker-animation-leave-to, .date-picker-animation-leave-active {
+		transform: scaleY(0);
+	}
 }
