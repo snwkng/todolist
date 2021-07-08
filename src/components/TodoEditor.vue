@@ -97,7 +97,7 @@ export default {
       const todo = {
         todo_name: this.todoEditor,
         todo_group: this.activeGroup._id,
-        todo_date: Date.parse(this.todoDate)
+        todo_date: this.todoDate
       }
       store.dispatch('todo/createTodo', todo).then(() => {
         // this.$emit('cancelCreate')
@@ -106,8 +106,12 @@ export default {
     },
     doneTodo (todo) {
       todo.todo_name = this.todoEditor
+      if (this.todoDate !== todo.todo_date) {
+        todo.todo_date = this.todoDate
+      }
       store.dispatch('todo/updateTodo', todo).then(() => {
         this.todoEditor = ''
+        this.todoDate = new Date()
         if (typeof todo === 'object') {
           this.editableTodo = null
         }

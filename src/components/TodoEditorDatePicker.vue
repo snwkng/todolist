@@ -22,16 +22,16 @@
 
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
   mixins: [clickaway],
   name: 'TodoEditorDatePicker',
   props: {
     todoDate: {
-      type: String,
+      type: Date,
       default: () => {
-        return moment().format('MMMM Do YYYY, h:mm:ss a')
+        return new Date()
       }
     }
   },
@@ -49,10 +49,10 @@ export default {
   computed: {
     date: {
       get () {
-        return moment().format('MMMM Do YYYY, h:mm:ss a')
+        return this.todoDate
       },
       set (value) {
-        this.$emit('todoDate', moment(value).format('MMMM Do YYYY, h:mm:ss a'))
+        this.$emit('todoDate', value)
       }
     }
   },
@@ -62,10 +62,11 @@ export default {
     },
     chooseDate (how) {
       if (how === 'today') {
-        this.date = moment().format()
+        this.date = new Date()
       }
       if (how === 'tomorrow') {
-        this.date = moment().add(1, 'days').format()
+        const tomorrow = new Date()
+        this.date = tomorrow.setDate(tomorrow.getDate() + 1)
       }
     }
   }
