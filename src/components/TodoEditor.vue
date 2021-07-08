@@ -20,7 +20,7 @@
       </div>
 
       <transition name="date-picker-animation">
-        <todo-editor-date-picker v-if="datePicker" @closeDatePicker="datePicker = false" />
+        <todo-editor-date-picker v-if="datePicker" @todoDate='todoDate = $event' @closeDatePicker="datePicker = false" />
       </transition>
     </div>
     <div class="create-list__options">
@@ -51,7 +51,8 @@ export default {
   },
   data () {
     return {
-      datePicker: false
+      datePicker: false,
+      todoDate: new Date()
     }
   },
   computed: {
@@ -96,7 +97,7 @@ export default {
       const todo = {
         todo_name: this.todoEditor,
         todo_group: this.activeGroup._id,
-        todo_date: Date.now
+        todo_date: Date.parse(this.todoDate)
       }
       store.dispatch('todo/createTodo', todo).then(() => {
         // this.$emit('cancelCreate')
