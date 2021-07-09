@@ -2,14 +2,18 @@ import axios from 'axios'
 
 // initial state
 const state = () => ({
-  allTogoGroups: [],
+  allTodoGroups: [],
   todoError: null,
 
   activeGroup: {}
 })
 
 // getters
-const getters = {}
+const getters = {
+  favorite: state => {
+    return state.allTodoGroups.filter(item => item.group_name === 'Избранное')[0]
+  }
+}
 
 // actions
 const actions = {
@@ -51,7 +55,7 @@ const actions = {
 // mutations
 const mutations = {
   SET_TODO_GROUPS (state, allGroup) {
-    state.allTogoGroups = allGroup
+    state.allTodoGroups = allGroup
   },
   SET_TODO_ERROR (state, error) {
     state.todoError = error

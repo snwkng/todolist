@@ -1,0 +1,30 @@
+.user-account {
+
+  &-navbar {
+    @include BoxShadow(3);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    width: 100;
+
+    &__title {
+      font-size: 1.3rem;
+      padding: 0 20px;
+    }
+
+    &__close {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      font-size: 1.3rem;
+      padding: 0 20px;
+      text-decoration: none;
+
+      span {
+        color: #bfbdbd;
+        margin-left: 5px;
+      }
+    }
+  }
+}

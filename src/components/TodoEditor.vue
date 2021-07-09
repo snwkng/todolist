@@ -8,6 +8,20 @@
         @keydown.esc="cancelCreate"
         @keydown.enter="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
       </textarea>
+      <div class='todo-editor__helpers'>
+        <div class="todo-editor__helpers-item" @click="datePicker = true">
+          <v-icon class="icon" name="clock"></v-icon>
+          <span class="todo-editor__helpers-item-text"> Срок</span>
+        </div>
+        <div class="todo-editor__helpers-item">
+          <v-icon class="icon" name="inbox"></v-icon>
+          <span class="todo-editor__helpers-item-text"> {{ allTodoGroups[0].group_name }}</span>
+        </div>
+      </div>
+
+      <transition name="date-picker-animation">
+        <todo-editor-date-picker v-if="datePicker" @todoDate='todoDate = $event' @closeDatePicker="datePicker = false" />
+      </transition>
     </div>
     <div class="create-list__options">
       <button type="button" class="create" @click="typeEditor === 'createEditor' ? addTodo() : doneTodo(editableTodo)">
@@ -21,8 +35,12 @@
 <script>
 import { mapState } from 'vuex'
 import store from '@/store'
+import TodoEditorDatePicker from './TodoEditorDatePicker'
 export default {
   name: 'TodoEditor',
+  components: {
+    TodoEditorDatePicker
+  },
   props: {
     typeEditor: {
       type: String,
@@ -31,9 +49,16 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      datePicker: false,
+      todoDate: new Date()
+    }
+  },
   computed: {
     ...mapState('todoGroup', {
-      activeGroup: 'activeGroup'
+      activeGroup: 'activeGroup',
+      allTodoGroups: 'allTodoGroups'
     }),
     todoEditor: {
       get () {
@@ -52,6 +77,13 @@ export default {
       }
     }
   },
+  watch: {
+    'activeGroup.group_name' (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.cancelCreate()
+      }
+    }
+  },
   methods: {
     focusInput () {
       this.$refs.focusTodoEditor.focus()
@@ -65,7 +97,7 @@ export default {
       const todo = {
         todo_name: this.todoEditor,
         todo_group: this.activeGroup._id,
-        todo_date: Date.now
+        todo_date: this.todoDate
       }
       store.dispatch('todo/createTodo', todo).then(() => {
         // this.$emit('cancelCreate')
@@ -74,8 +106,12 @@ export default {
     },
     doneTodo (todo) {
       todo.todo_name = this.todoEditor
+      if (this.todoDate !== todo.todo_date) {
+        todo.todo_date = this.todoDate
+      }
       store.dispatch('todo/updateTodo', todo).then(() => {
         this.todoEditor = ''
+        this.todoDate = new Date()
         if (typeof todo === 'object') {
           this.editableTodo = null
         }

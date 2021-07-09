@@ -1,46 +1,48 @@
 <template>
-  <div class="position-relative">
-    <div class="user-info" @click="showMenu = !showMenu">
-      <div class="user-info__name">
+  <div class='position-relative'>
+    <div class='user-info' @click='showMenu = !showMenu'>
+      <div class='user-info__name'>
         {{ userInfo.name }}
       </div>
-      <div class="user-info__avatar">
+      <div class='user-info__avatar'>
         <img
-          class="user-avatar"
-          :src="require(`../assets/images/avatars/${userInfo.avatar}`)"
-          alt="avatar"
+          class='user-avatar'
+          :src='require(`../assets/images/avatars/${userInfo.avatar}`)'
+          alt='avatar'
         />
       </div>
-      <v-icon class="user-info__icon" name="chevron-down"></v-icon>
+      <v-icon class='user-info__icon' name='chevron-down'></v-icon>
     </div>
-    <div class="top-menu" v-on-clickaway="clickAway" v-if="showMenu">
-      <a class="top-menu-user-section">
-        <div class="top-menu-user-section__user">
-          <img
-            class="user-avatar"
-            :src="require(`../assets/images/avatars/${userInfo.avatar}`)"
-            alt="avatar"
-          />
-          <div class="top-menu-user-section__info">
-            <span>{{ userInfo.name }}</span>
-            <span>test@test.test</span>
+    <transition name='date-picker-animation'>
+      <div class='top-menu' v-on-clickaway='clickAway' v-if='showMenu'>
+        <router-link to='/user/account' class='top-menu-user-section'>
+          <div class='top-menu-user-section__user'>
+            <img
+              class='user-avatar'
+              :src='require(`../assets/images/avatars/${userInfo.avatar}`)'
+              alt='avatar'
+            />
+            <div class='top-menu-user-section__info'>
+              <span>{{ userInfo.name }}</span>
+              <span>test@test.test</span>
+            </div>
           </div>
+          <div class='top-menu-user-section__settings'>
+            <v-icon class='logout__icon' name='settings'></v-icon>
+            <span class='logout__text'>Настройки</span>
+          </div>
+        </router-link>
+        <hr />
+        <div class='top-menu-options-section'>
+          <button class='logout' @click='logOut' title='logout'>
+            <v-icon class='logout__icon' name='log-out'></v-icon>
+            <span class='logout__text'>Выйти</span>
+          </button>
         </div>
-        <div class="top-menu-user-section__settings">
-          <v-icon class="logout__icon" name="settings"></v-icon>
-          <span class="logout__text">Настройки</span>
-        </div>
-      </a>
-      <hr />
-      <div class="top-menu-options-section">
-        <button class="logout" @click="logOut" title="logout">
-          <v-icon class="logout__icon" name="log-out"></v-icon>
-          <span class="logout__text">Выйти</span>
-        </button>
+        <hr />
+        <input type='file' ref='avatar' name='avatar' @change='uploadFiles' />
       </div>
-      <hr />
-        <input type="file" ref="avatar" name="avatar" @change="uploadFiles"/>
-    </div>
+    </transition>
   </div>
 </template>
 

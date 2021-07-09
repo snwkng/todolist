@@ -51,6 +51,10 @@ button {
   cursor: pointer
 }
 
+.d-flex {
+  display: flex;
+}
+
 .layout {
   display: flex;
   overflow: hidden;
@@ -170,7 +174,11 @@ button {
 }
 
 .star {
-  color: orange;
+  color: orange !important;
+}
+
+.active-star {
+  fill: orange !important;
 }
 
 .text-decoration-line-through {
@@ -179,4 +187,28 @@ button {
 
 .position-relative {
   position: relative;
+}
+
+// vue animations
+
+// editor animations
+.date-picker-animation-enter-active {
+  transition: all .3s ease;
+}
+.date-picker-animation-leave-active {
+  transition: all .3s ease;
+}
+.date-picker-animation-enter, .date-picker-animation-leave-to
+  /* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+// component animations
+.component-animation-enter-active, .component-animation-leave-active {
+  transition: opacity .3s ease;
+}
+.component-animation-enter, .component-animation-leave-to
+  /* .component-fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }

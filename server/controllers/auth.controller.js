@@ -123,7 +123,7 @@ class AuthController {
         res.status(200).send({
           id: user._id,
           name: user.username,
-          avatar: user.avatar
+          avatar: user.avatar ? user.avatar : 'default-avatar.png'
         })
       })
     })

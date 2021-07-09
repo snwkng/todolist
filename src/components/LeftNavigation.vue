@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     ...mapState('todoGroup', {
-      allTodoGroups: 'allTogoGroups',
+      allTodoGroups: 'allTodoGroups',
       activeGroup: 'activeGroup'
     }),
     mainList () {
