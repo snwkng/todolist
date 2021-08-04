@@ -1,11 +1,16 @@
 # todolist
 
+## You need a local mongo database to run
+
 ## Project setup
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+```
+nodemon server/index.js
+```
 ```
 npm run serve
 ```
